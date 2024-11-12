@@ -4,7 +4,7 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'reac
 const LoginScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
+      {/* <Image source={require('../assets/logo.png')} style={styles.logo} /> */}
       <Text style={styles.title}>Bem-vindo ao Coelhinho Fofinho!</Text>
 
       {/* Campo de entrada de texto para o nome do usuário */}

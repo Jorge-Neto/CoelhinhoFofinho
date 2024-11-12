@@ -5,7 +5,7 @@ const SplashScreen = () => {
   return (
     <View style={styles.container}>
       {/* Imagem do fundo conforme o design do Figma */}
-      <Image source={require('../assets/splash-background.png')} style={styles.backgroundImage} />
+      {/* <Image source={require('../assets/splash-background.png')} style={styles.backgroundImage} /> */}
       
       {/* Logo ou texto centralizado */}
       <Text style={styles.logoText}>Coelhinho Fofinho</Text>
