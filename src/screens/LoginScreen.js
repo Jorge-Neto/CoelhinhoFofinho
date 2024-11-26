@@ -1,90 +1,155 @@
 import React from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  ImageBackground,
+} from 'react-native';
+
+
+import background from '../../assets/images/background.png';
+import logo from '../../assets/images/logo.png';
+import googleIcon from '../../assets/images/icons/google-icon.png';
+import facebookIcon from '../../assets/images/icons/facebook-icon.png';
+
 
 const LoginScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      {/* <Image source={require('../assets/logo.png')} style={styles.logo} /> */}
-      <Text style={styles.title}>Bem-vindo ao Coelhinho Fofinho!</Text>
+    <ImageBackground
+      source={background}
+      resizeMode="cover"
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Image
+          source={logo}
+          style={styles.logo}
+        />
 
-      {/* Campo de entrada de texto para o nome do usuário */}
-      <TextInput
-        placeholder="Digite seu nome"
-        placeholderTextColor="#888"
-        style={styles.input}
-      />
+        <Text style={styles.welcomeText}>Seja Bem-Vindo!</Text>
+        <Text style={styles.subText}>Vamos embarcar nessa juntos?</Text>
 
-      {/* Botão para continuar com o nome */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('ContentSelection')}
-      >
-        <Text style={styles.buttonText}>Continuar</Text>
-      </TouchableOpacity>
+        <TextInput
+          placeholder="Nome de Usuário"
+          placeholderTextColor="#888"
+          style={styles.input}
+        />
+        <TextInput
+          placeholder="Senha"
+          placeholderTextColor="#888"
+          secureTextEntry
+          style={styles.input}
+        />
 
-      {/* Botões de login com Google e Facebook */}
-      <TouchableOpacity
-        style={[styles.button, styles.googleButton]}
-        onPress={() => alert('Login com Google')}
-      >
-        <Text style={styles.buttonText}>Entrar com Google</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => navigation.navigate('ContentSelection')}
+        >
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
 
-      <TouchableOpacity
-        style={[styles.button, styles.facebookButton]}
-        onPress={() => alert('Login com Facebook')}
-      >
-        <Text style={styles.buttonText}>Entrar com Facebook</Text>
-      </TouchableOpacity>
-    </View>
+        <View>
+          <TouchableOpacity
+            style={[styles.socialButton, styles.googleButton]}
+            onPress={() => alert('Login com Google')}
+          >
+            <Image
+              source={googleIcon}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[styles.socialButton, styles.facebookButton]}
+            onPress={() => alert('Login com Facebook')}
+          >
+            <Image
+              source={facebookIcon}
+              style={styles.icon}
+            />
+          </TouchableOpacity>
+
+        </View>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    backgroundColor: '#acd29c',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#FFF8E1', // Ajuste conforme o fundo do design do Figma
   },
   logo: {
-    width: 150, // Ajuste o tamanho conforme o print do Figma
-    height: 150,
+    width: 200,
+    height: 80,
     marginBottom: 20,
   },
-  title: {
-    fontSize: 24, // Ajuste para corresponder ao design
+  welcomeText: {
+    fontSize: 28,
     fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
+    color: '#FFFFFF',
     textAlign: 'center',
+    marginBottom: 10,
+  },
+  subText: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    textAlign: 'center',
+    marginBottom: 30,
   },
   input: {
-    width: '100%',
-    padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    marginBottom: 15,
-    backgroundColor: '#FFF', // Fundo branco para o campo de entrada
-  },
-  button: {
-    width: '100%',
-    backgroundColor: '#FFB6C1',
+    width: '90%',
     padding: 15,
-    borderRadius: 8,
+    borderRadius: 25,
+    marginBottom: 15,
+    backgroundColor: '#FFFACD',
+    fontSize: 16,
+    elevation: 2, // Para sombra leve
+  },
+  loginButton: {
+    width: '90%',
+    padding: 15,
+    borderRadius: 25,
+    backgroundColor: '#FF8C94',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
+    elevation: 5,
+  },
+  socialButton: {
+    width: '90%',
+    height: 50,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 15,
   },
   googleButton: {
     backgroundColor: '#DB4437',
+    width: '121px',
   },
   facebookButton: {
     backgroundColor: '#4267B2',
+    width: '121px',
+  },
+  icon: {
+    width: 24,
+    height: 24,
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFFFFF',
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
