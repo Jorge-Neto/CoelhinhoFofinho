@@ -6,6 +6,7 @@
 - Node 18 ou superior
 
 ###Execução do projeto:
+
 Para instalar as dependências, abra terminal e execute o comando
 `yarn`
 
