@@ -51,7 +51,7 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
-        <View>
+        <View style={styles.socialButtonsContainer}>
           <TouchableOpacity
             style={[styles.socialButton, styles.googleButton]}
             onPress={() => alert('Login com Google')}
@@ -127,13 +127,20 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     elevation: 5,
   },
-  socialButton: {
+  socialButtonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     width: '90%',
-    height: 50,
-    borderRadius: 25,
-    justifyContent: 'center',
+  },
+  socialButton: {
+    flex: 1,
+    flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 15,
+    justifyContent: 'center',
+    backgroundColor: '#E0E0E0',
+    padding: 10,
+    borderRadius: 25,
+    marginHorizontal: 5,
   },
   googleButton: {
     backgroundColor: '#DB4437',
