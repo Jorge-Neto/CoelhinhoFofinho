@@ -1,70 +1,101 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, } from 'react-native';
+
+import background from '../../assets/images/background.png';
+import faseUm from '../../assets/images/coelhos/fase-um.png';
+import faseDois from '../../assets/images/coelhos/fase-dois.png';
+import faseTres from '../../assets/images/coelhos/fase-tres.png';
 
 const ContentSelectionScreen = ({ navigation }) => {
   const ageGroups = [
-    { label: '0-2 anos', value: '0-2' },
-    { label: '3-5 anos', value: '3-5' },
-    { label: '6-8 anos', value: '6-8' },
-    { label: '9-10 anos', value: '9-10' },
+    { id: 1, imageSource: faseUm, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
+    { id: 2, imageSource: faseDois, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
+    { id: 3, imageSource: faseTres, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
   ];
 
   const handleSelection = (ageGroup) => {
-    // Adicione a lógica para processar a seleção de faixa etária
-    alert(`Conteúdo recomendado para: ${ageGroup.label}`);
+    alert(`Conteúdo recomendado para crianças de : ${ageGroup.ageText}`);
     navigation.navigate('Loading');
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Escolha a faixa etária da criança:</Text>
-      <View style={styles.buttonsContainer}>
-        {ageGroups.map((group, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.button}
-            onPress={() => handleSelection(group)}
-          >
-            <Text style={styles.buttonText}>{group.label}</Text>
+    <ImageBackground
+      source={background}
+      resizeMode="cover"
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}>Escolha uma experiência de conteúdo para seu filho</Text>
+        <Text style={styles.subtitle}>
+          Sua escolha afetará os tipos de conteúdos que ficarão disponíveis no app.
+        </Text>
+        {ageGroups.map(group => (
+          <TouchableOpacity style={styles.optionButton} onPress={() => handleSelection(group)}>
+            <Image
+              source={group.imageSource}
+              style={styles.icon}
+            />
+            <Text style={styles.optionText}>{group.optionText}</Text>
+            <Text style={styles.ageText}>{group.ageText}</Text>
           </TouchableOpacity>
         ))}
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    backgroundColor: '#969aca',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: '#FFF8E1', // Ajuste conforme a cor de fundo do Figma
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-    color: '#333',
+    fontSize: 18,
+    fontWeight: 700,
+    marginBottom: 12,
+    color: '#fff',
     textAlign: 'center',
   },
-  buttonsContainer: {
-    width: '100%',
-    alignItems: 'center',
+  subtitle: {
+    fontSize: 14,
+    fontWeight: 400,
+    color: '#fff',
+    textAlign: 'center',
+    marginBottom: 38,
   },
-  button: {
-    width: '80%', // Ajuste a largura conforme o design do Figma
-    backgroundColor: '#90EE90', // Substitua pela cor do Figma
-    padding: 15,
-    borderRadius: 12, // Ajuste conforme o design do Figma
+  optionButton: {
+    width: '90%',
+    backgroundColor: '#FFEC8A',
+    paddingTop: 16,
+    paddingBottom: 14,
+    borderRadius: 13,
     alignItems: 'center',
-    marginBottom: 15,
-    elevation: 2, // Adicione sombra se necessário
+    marginBottom: 20,
+    elevation: 3,
   },
-  buttonText: {
-    color: '#000',
-    fontSize: 18, // Ajuste para corresponder ao tamanho do Figma
-    fontWeight: 'bold',
+  icon: {
+    width: 60,
+    height: 60,
+    marginBottom: 10,
+  },
+  optionText: {
+    fontSize: 24,
+    fontWeight: '500',
+    color: '#889DD1',
+  },
+  ageText: {
+    fontSize: 16,
+    fontWeight: '300',
+    color: '#889DD1',
+    marginTop: 5,
   },
 });
 
