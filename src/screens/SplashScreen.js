@@ -1,15 +1,32 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Image, ImageBackground, StyleSheet } from 'react-native';
 
-const SplashScreen = () => {
+import background from '../../assets/images/background.png';
+import logo from '../../assets/images/logo.png';
+
+
+const SplashScreen = ({ navigation }) => {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('Login');
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
-    <View style={styles.container}>
-      {/* Imagem do fundo conforme o design do Figma */}
-      {/* <Image source={require('../assets/splash-background.png')} style={styles.backgroundImage} /> */}
-      
-      {/* Logo ou texto centralizado */}
-      <Text style={styles.logoText}>Coelhinho Fofinho</Text>
-    </View>
+    <ImageBackground
+      source={background}
+      resizeMode="cover"
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Image
+          source={logo}
+          style={styles.logo}
+        />
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -18,23 +35,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative',
   },
-  backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    width: '100%',
-    height: '100%',
+  background: {
+    flex: 1,
     resizeMode: 'cover',
+    backgroundColor: '#87add9',
   },
-  logoText: {
-    fontSize: 48, // Ajuste conforme o tamanho do texto no Figma
-    fontWeight: 'bold', // Ou use `fontFamily` se houver uma fonte personalizada
-    color: '#FEE4A0', // Substitua pelo código exato da cor do Figma
-    textAlign: 'center',
+  logo: {
+    width: 285,
+    height: 122,
+    resizeMode: 'contain',
   },
 });
 

@@ -14,7 +14,7 @@ const ContentSelectionScreen = ({ navigation }) => {
   ];
 
   const handleSelection = (ageGroup) => {
-    alert(`Conteúdo recomendado para crianças de : ${ageGroup.ageText}`);
+    alert(`Conteúdo recomendado para crianças do grupo: ${ageGroup.ageText}`);
     navigation.navigate('Loading');
   };
 
@@ -29,8 +29,8 @@ const ContentSelectionScreen = ({ navigation }) => {
         <Text style={styles.subtitle}>
           Sua escolha afetará os tipos de conteúdos que ficarão disponíveis no app.
         </Text>
-        {ageGroups.map(group => (
-          <TouchableOpacity style={styles.optionButton} onPress={() => handleSelection(group)}>
+        {ageGroups.map((group, index) => (
+          <TouchableOpacity key={group.optionText + index} style={styles.optionButton} onPress={() => handleSelection(group)}>
             <Image
               source={group.imageSource}
               style={styles.icon}
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 700,
+    width: '82%',
     marginBottom: 12,
     color: '#fff',
     textAlign: 'center',
@@ -67,6 +68,7 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 14,
     fontWeight: 400,
+    width: '78%',
     color: '#fff',
     textAlign: 'center',
     marginBottom: 38,
@@ -78,13 +80,14 @@ const styles = StyleSheet.create({
     paddingBottom: 14,
     borderRadius: 13,
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 19,
     elevation: 3,
+    boxShadow: 'none',
   },
   icon: {
-    width: 60,
-    height: 60,
-    marginBottom: 10,
+    maxWidth: 73,
+    maxHeight: 73,
+    marginBottom: 5,
   },
   optionText: {
     fontSize: 24,

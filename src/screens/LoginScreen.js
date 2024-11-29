@@ -84,6 +84,7 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
     justifyContent: 'center',
     backgroundColor: '#acd29c',
+    height: '100dvh'
   },
   container: {
     flex: 1,
@@ -101,9 +102,11 @@ const styles = StyleSheet.create({
     fontWeight: 700,
     color: '#FFFFFF',
     textAlign: 'center',
-    marginBottom: 10,
+    marginTop: 51,
+    marginBottom: 20,
   },
   subText: {
+    marginHorizontal: 40,
     fontSize: 28,
     fontWeight: 300,
     color: '#FFFFFF',
@@ -118,6 +121,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCED93B2',
     fontSize: 16,
     elevation: 2,
+    border: 0,
+    textAlign: 'center',
+    boxShadow: '0px 4px 4px 0px #00000040',
+
   },
   loginButton: {
     width: '90%',
@@ -133,6 +140,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '90%',
+    columnGap: '32px',
   },
   socialButton: {
     flex: 1,

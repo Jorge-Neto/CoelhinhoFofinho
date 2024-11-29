@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react';
 import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
 
+import background from '../../assets/images/background.png';
+
 const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
-    // Temporizador para simular o carregamento antes de navegar para a próxima tela
-    const timer = setTimeout(() => {
-      navigation.replace('ActivitySelection'); // Ajuste conforme a próxima tela do fluxo
-    }, 3000); // Tempo de 3 segundos (ajuste conforme necessário)
 
-    // Limpa o timer se o componente for desmontado
+    const timer = setTimeout(() => {
+      navigation.replace('ActivitySelection');
+    }, 3000);
+
     return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size="large" color="#00ff00" />
-      <Text style={styles.text}>Carregando...</Text>
-    </View>
+    <ImageBackground
+      source={background}
+      resizeMode="cover"
+      style={styles.background}
+    >
+      <View style={styles.container}>
+        <Text style={styles.text}>CERTO, VAMOS NESSA!</Text>
+        <ActivityIndicator size="large" color="#0099cc" />
+      </View>
+    </ImageBackground>
+
   );
 };
 
@@ -25,13 +33,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFF8E1', // Ajuste para a cor de fundo conforme o Figma
+  },
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    backgroundColor: '#97cfcc',
   },
   text: {
-    marginTop: 20,
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333', // Cor do texto conforme o design
+    fontWeight: 700,
+    fontSize: 23,
+    marginBottom: 14,
+    color: '#FFFFFF',
+    textTransform: 'uppercase'
   },
 });
 
