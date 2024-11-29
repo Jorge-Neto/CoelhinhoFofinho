@@ -4,7 +4,6 @@ import { View, Image, ImageBackground, StyleSheet } from 'react-native';
 import background from '../../assets/images/background.png';
 import logo from '../../assets/images/logo.png';
 
-
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     const timer = setTimeout(() => {

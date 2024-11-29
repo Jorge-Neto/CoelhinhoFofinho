@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, Text, ActivityIndicator, StyleSheet, ImageBackground } from 'react-native';
 
 import background from '../../assets/images/background.png';
 
@@ -7,7 +7,7 @@ const LoadingScreen = ({ navigation }) => {
   useEffect(() => {
 
     const timer = setTimeout(() => {
-      navigation.replace('ActivitySelection');
+      navigation.replace('AdventureSelectionScreen');
     }, 3000);
 
     return () => clearTimeout(timer);

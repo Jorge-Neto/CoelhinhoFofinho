@@ -6,7 +6,7 @@ import faseUm from '../../assets/images/coelhos/fase-um.png';
 import faseDois from '../../assets/images/coelhos/fase-dois.png';
 import faseTres from '../../assets/images/coelhos/fase-tres.png';
 
-const ContentSelectionScreen = ({ navigation }) => {
+const AgeSelectionScreen = ({ navigation }) => {
   const ageGroups = [
     { id: 1, imageSource: faseUm, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
     { id: 2, imageSource: faseDois, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ContentSelectionScreen;
+export default AgeSelectionScreen;
