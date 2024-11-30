@@ -1,28 +1,31 @@
 import React from 'react';
 import { View, Text, TextInput, ScrollView, StyleSheet } from 'react-native';
+import LayoutWithFooter from '../layouts/LayoutWithFooter';
 
 const GameScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Jogos Disponíveis</Text>
-      <TextInput
-        placeholder="Buscar por nome do jogo"
-        placeholderTextColor="#888"
-        style={styles.searchBar}
-      />
-      <ScrollView horizontal>
-        <View style={styles.item}>
-          <Text>Jogo 1</Text>
-        </View>
-        <View style={styles.item}>
-          <Text>Jogo 2</Text>
-        </View>
-        <View style={styles.item}>
-          <Text>Jogo 3</Text>
-        </View>
-        {/* Adicione mais itens conforme necessário */}
-      </ScrollView>
-    </View>
+    <LayoutWithFooter activeTab={'Game'}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Jogos Disponíveis</Text>
+        <TextInput
+          placeholder="Buscar por nome do jogo"
+          placeholderTextColor="#888"
+          style={styles.searchBar}
+        />
+        <ScrollView horizontal>
+          <View style={styles.item}>
+            <Text>Jogo 1</Text>
+          </View>
+          <View style={styles.item}>
+            <Text>Jogo 2</Text>
+          </View>
+          <View style={styles.item}>
+            <Text>Jogo 3</Text>
+          </View>
+          {/* Adicione mais itens conforme necessário */}
+        </ScrollView>
+      </View>
+    </LayoutWithFooter>
   );
 };
 
@@ -30,7 +33,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#FFF8E1',
   },
   title: {
     fontSize: 24,

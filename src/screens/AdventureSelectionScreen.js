@@ -10,6 +10,11 @@ import gameIcon from '../../assets/images/icons/game-icon.png';
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 const AdventureSelectionScreen = ({ navigation }) => {
+
+  const handleNavigate = (selectedTab) => {
+    navigation.navigate(selectedTab, { tab: selectedTab });
+  };
+
   return (
     <ImageBackground
       source={background}
@@ -26,61 +31,51 @@ const AdventureSelectionScreen = ({ navigation }) => {
 
         <View style={styles.optionsContainer}>
           {/* DESENHOS */}
-          <View style={styles.optionsLine}>
-            <TouchableOpacity style={styles.iconButton}
-              onPress={() => console.log('DESENHOS')}
-            >
+          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Drawing')}>
+            <View style={styles.iconButton}>
               <Image source={videoIcon} style={styles.icon} />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.optionButton}
-              onPress={() => console.log('DESENHOS')}
-            >
+            </View>
+            <View
+              style={styles.optionButton}>
               <Text style={styles.buttonText}>DESENHOS</Text>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
           {/* ESTUDAR */}
-          <View style={styles.optionsLine}>
-            <TouchableOpacity
+          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Study')}>
+            <View
               style={[styles.optionButton, styles.buttonBlue]}
-              onPress={() => console.log('ESTUDAR')}
             >
               <Text style={styles.buttonText}>ESTUDAR</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconButton, styles.buttonBlue]}
-              onPress={() => console.log('ESTUDAR')}
+            </View>
+            <View style={[styles.iconButton, styles.buttonBlue]}
             >
               <Image source={studyIcon} style={styles.icon} />
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
           {/* APRENDER */}
-          <View style={styles.optionsLine}>
-            <TouchableOpacity style={styles.iconButton}
-              onPress={() => console.log('APRENDER')}
+          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Learning')}>
+            <View style={styles.iconButton}
             >
               <Image source={learnIcon} style={styles.icon} />
-            </TouchableOpacity>
-            <TouchableOpacity
+            </View>
+            <View
               style={styles.optionButton}
-              onPress={() => console.log('APRENDER')}
             >
               <Text style={styles.buttonText}>APRENDER</Text>
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
           {/* JOGAR */}
-          <View style={styles.optionsLine}>
-            <TouchableOpacity
+          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Game')}>
+            <View
               style={[styles.optionButton, styles.buttonBlue]}
-              onPress={() => console.log('JOGAR')}
             >
               <Text style={styles.buttonText}>JOGAR</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={[styles.iconButton, styles.buttonBlue]}
-              onPress={() => console.log('JOGAR')}
+            </View>
+            <View style={[styles.iconButton, styles.buttonBlue]}
             >
               <Image source={gameIcon} style={styles.icon} />
-            </TouchableOpacity>
-          </View>
+            </View>
+          </TouchableOpacity>
         </View>
       </View>
     </ImageBackground>
@@ -147,11 +142,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#7FC7C0',
     width: 169,
     borderRadius: 2.56,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 3.41 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3,
-    elevation: 5,
+    paddingVertical: 4,
+    boxShadow: '0px 4px 4px 0px #00000040',
   },
   buttonBlue: {
     backgroundColor: '#889DD1',

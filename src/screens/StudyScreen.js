@@ -1,28 +1,32 @@
 import React from 'react';
 import { View, Text, TextInput, ScrollView, StyleSheet } from 'react-native';
+import LayoutWithFooter from '../layouts/LayoutWithFooter';
 
 const StudyScreen = () => {
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Atividades de Estudo</Text>
-      <TextInput
-        placeholder="Buscar por tema"
-        placeholderTextColor="#888"
-        style={styles.searchBar}
-      />
-      <ScrollView horizontal>
-        <View style={styles.item}>
-          <Text>Estudo 1</Text>
-        </View>
-        <View style={styles.item}>
-          <Text>Estudo 2</Text>
-        </View>
-        <View style={styles.item}>
-          <Text>Estudo 3</Text>
-        </View>
-        {/* Adicione mais itens conforme necessário */}
-      </ScrollView>
-    </View>
+    <LayoutWithFooter activeTab={'Study'}>
+      <View style={styles.container}>
+        <Text style={styles.title}>Atividades de Estudo</Text>
+        <TextInput
+          placeholder="Buscar por tema"
+          placeholderTextColor="#888"
+          style={styles.searchBar}
+        />
+        <ScrollView horizontal>
+          <View style={styles.item}>
+            <Text>Estudo 1</Text>
+          </View>
+          <View style={styles.item}>
+            <Text>Estudo 2</Text>
+          </View>
+          <View style={styles.item}>
+            <Text>Estudo 3</Text>
+          </View>
+          {/* Adicione mais itens conforme necessário */}
+        </ScrollView>
+      </View>
+    </LayoutWithFooter>
   );
 };
 
@@ -30,7 +34,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: '#FFF8E1',
   },
   title: {
     fontSize: 24,

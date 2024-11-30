@@ -3,17 +3,17 @@ import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-nati
 
 const SettingsScreen = ({ navigation }) => {
   const options = [
-    { label: 'Dados da Conta', action: () => alert('Dados da Conta') },
-    { label: 'Planos', action: () => alert('Planos') },
-    { label: 'Dados Financeiros', action: () => alert('Dados Financeiros') },
+    { id: 1, label: 'Dados da Conta', action: () => alert('Dados da Conta') },
+    { id: 2, label: 'Planos', action: () => alert('Planos') },
+    { id: 3, label: 'Dados Financeiros', action: () => alert('Dados Financeiros') },
   ];
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Configurações</Text>
-      {options.map((option, index) => (
+      {options.map((option) => (
         <TouchableOpacity
-          key={index}
+          key={id}
           style={styles.button}
           onPress={option.action}
         >

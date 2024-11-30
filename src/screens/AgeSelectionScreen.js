@@ -14,7 +14,7 @@ const AgeSelectionScreen = ({ navigation }) => {
   ];
 
   const handleSelection = (ageGroup) => {
-    alert(`Conteúdo recomendado para crianças do grupo: ${ageGroup.ageText}`);
+    // alert(`Conteúdo recomendado para crianças do grupo: ${ageGroup.ageText}`);
     navigation.navigate('Loading');
   };
 
@@ -29,8 +29,8 @@ const AgeSelectionScreen = ({ navigation }) => {
         <Text style={styles.subtitle}>
           Sua escolha afetará os tipos de conteúdos que ficarão disponíveis no app.
         </Text>
-        {ageGroups.map((group, index) => (
-          <TouchableOpacity key={group.optionText + index} style={styles.optionButton} onPress={() => handleSelection(group)}>
+        {ageGroups.map((group) => (
+          <TouchableOpacity key={group.id} style={styles.optionButton} onPress={() => handleSelection(group)}>
             <Image
               source={group.imageSource}
               style={styles.icon}
