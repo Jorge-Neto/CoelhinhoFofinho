@@ -8,12 +8,13 @@ import learnIcon from '../../assets/images/icons/learn-icon.png';
 import gameIcon from '../../assets/images/icons/game-icon.png';
 
 import { useNavigation } from '@react-navigation/native';
+import Header from '../components/header/Header';
 
 const LayoutWithFooter = ({ children, activeTab }) => {
   const navigation = useNavigation();
 
   const handleNavigate = (screen) => {
-    navigation.navigate(screen);
+    navigation.replace(screen);
   };
 
   return (
@@ -22,6 +23,7 @@ const LayoutWithFooter = ({ children, activeTab }) => {
       resizeMode="cover"
       style={styles.background}
     >
+      <Header />
       <View style={styles.content}>{children}</View>
       <View style={styles.footer}>
         <TouchableOpacity

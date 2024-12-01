@@ -3,11 +3,12 @@ import { View, Text, ActivityIndicator, StyleSheet, ImageBackground } from 'reac
 
 import background from '../../assets/images/background.png';
 
-const LoadingScreen = ({ navigation }) => {
+const LoadingScreen = ({ navigation, route }) => {
+  const { redirectRoute } = route.params;
   useEffect(() => {
 
     const timer = setTimeout(() => {
-      navigation.replace('AdventureSelectionScreen');
+      navigation.replace(redirectRoute);
     }, 3000);
 
     return () => clearTimeout(timer);

@@ -22,7 +22,7 @@ const AdventureSelectionScreen = ({ navigation }) => {
       style={styles.background}
     >
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
           <Text style={styles.backArrow}><Ionicons name="arrow-back" size={46} color="white" /></Text>
         </TouchableOpacity>
 

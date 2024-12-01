@@ -67,13 +67,13 @@ const styles = StyleSheet.create({
     fontWeight: 600,
     marginBottom: 7,
     textAlign: 'center',
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
   },
   scrollContainer: {
     backgroundColor: '#77C6C4',
     paddingTop: 18,
     paddingBottom: 19,
-    paddingHorizontal: 12
+    paddingHorizontal: 12,
   },
   item: {
     width: screenWidth * 0.6,
@@ -87,9 +87,11 @@ const styles = StyleSheet.create({
   itemImage: {
     width: '100%',
     height: 120,
+    // maxHeight: '132',
     resizeMode: 'cover',
     borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,
+
   },
   itemText: {
     paddingVertical: 10,

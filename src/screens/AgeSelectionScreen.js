@@ -13,9 +13,9 @@ const AgeSelectionScreen = ({ navigation }) => {
     { id: 3, imageSource: faseTres, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
   ];
 
-  const handleSelection = (ageGroup) => {
+  const handleSelection = (redirectRoute) => {
     // alert(`Conteúdo recomendado para crianças do grupo: ${ageGroup.ageText}`);
-    navigation.navigate('Loading');
+    navigation.navigate('Loading', { redirectRoute });
   };
 
   return (
@@ -30,7 +30,7 @@ const AgeSelectionScreen = ({ navigation }) => {
           Sua escolha afetará os tipos de conteúdos que ficarão disponíveis no app.
         </Text>
         {ageGroups.map((group) => (
-          <TouchableOpacity key={group.id} style={styles.optionButton} onPress={() => handleSelection(group)}>
+          <TouchableOpacity key={group.id} style={styles.optionButton} onPress={() => handleSelection("AdventureSelectionScreen")}>
             <Image
               source={group.imageSource}
               style={styles.icon}
