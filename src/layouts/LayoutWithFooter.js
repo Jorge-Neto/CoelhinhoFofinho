@@ -1,7 +1,12 @@
-import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
 import background from '../../assets/images/background.png';
+import videoIcon from '../../assets/images/icons/video-icon.png';
+import studyIcon from '../../assets/images/icons/study-icon.png';
+import learnIcon from '../../assets/images/icons/learn-icon.png';
+import gameIcon from '../../assets/images/icons/game-icon.png';
+
 import { useNavigation } from '@react-navigation/native';
 
 const LayoutWithFooter = ({ children, activeTab }) => {
@@ -23,24 +28,28 @@ const LayoutWithFooter = ({ children, activeTab }) => {
           style={[styles.footerButton, activeTab === 'Drawing' && styles.activeButton]}
           onPress={() => handleNavigate('Drawing')}
         >
+          <Image style={styles.footerImage} source={videoIcon} />
           <Text style={styles.footerText}>Desenhos</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.footerButton, activeTab === 'Study' && styles.activeButton]}
           onPress={() => handleNavigate('Study')}
         >
+          <Image style={styles.footerImage} source={studyIcon} />
           <Text style={styles.footerText}>Estudar</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.footerButton, activeTab === 'Learning' && styles.activeButton]}
           onPress={() => handleNavigate('Learning')}
         >
+          <Image style={styles.footerImage} source={learnIcon} />
           <Text style={styles.footerText}>Aprender</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.footerButton, activeTab === 'Game' && styles.activeButton]}
           onPress={() => handleNavigate('Game')}
         >
+          <Image style={styles.footerImage} source={gameIcon} />
           <Text style={styles.footerText}>Jogos</Text>
         </TouchableOpacity>
       </View>
@@ -53,34 +62,42 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
-    backgroundColor: '#77C6C4',
+    backgroundColor: '#DFE3D9',
     height: '100dvh'
   },
   content: {
     flex: 1,
-    padding: 10,
   },
   footer: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#87add9',
     paddingVertical: 10,
+    paddingHorizontal: 24
   },
   footerButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 8,
-    backgroundColor: '#6e9cd2',
+    width: 64,
+    height: 48,
+    textAlign: 'center',
+    justifyContent: 'center'
   },
   activeButton: {
-    backgroundColor: '#4a80c5',
+    // backgroundColor: '#4a80c5',
+  },
+  footerImage: {
+    objectFit: 'contain',
+    maxWidth: 50,
+    maxHeight: 36,
+    marginHorizontal: 'auto',
   },
   footerText: {
     color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 12,
+    fontWeight: 700,
+    fontSize: 8,
     textAlign: 'center',
+    marginHorizontal: 'auto',
+    marginTop: 2,
   },
 })
 

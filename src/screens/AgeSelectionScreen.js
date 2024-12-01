@@ -2,9 +2,9 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, } from 'react-native';
 
 import background from '../../assets/images/background.png';
-import faseUm from '../../assets/images/coelhos/fase-um.png';
-import faseDois from '../../assets/images/coelhos/fase-dois.png';
-import faseTres from '../../assets/images/coelhos/fase-tres.png';
+import faseUm from '../../assets/images/habbits/fase-um.png';
+import faseDois from '../../assets/images/habbits/fase-dois.png';
+import faseTres from '../../assets/images/habbits/fase-tres.png';
 
 const AgeSelectionScreen = ({ navigation }) => {
   const ageGroups = [
