@@ -85,15 +85,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   activeButton: {
-    // backgroundColor: '#4a80c5',
   },
   footerImage: {
     objectFit: 'contain',
     maxWidth: 50,
     maxHeight: 36,
     marginHorizontal: 'auto',
-    // marginHorizontal: '50%',
-    // transform: [{ translateX: -100 }],
   },
   footerText: {
     color: '#fff',
@@ -101,8 +98,6 @@ const styles = StyleSheet.create({
     fontSize: 8,
     textAlign: 'center',
     marginHorizontal: 'auto',
-    // marginHorizontal: '50%',
-    // transform: [{ translateX: -100 }],
     marginTop: 2,
   },
 })

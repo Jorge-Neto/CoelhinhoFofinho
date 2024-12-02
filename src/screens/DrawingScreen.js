@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
   itemImage: {
     width: '100%',
     height: 120,
-    // maxHeight: '132',
     resizeMode: 'cover',
     borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,

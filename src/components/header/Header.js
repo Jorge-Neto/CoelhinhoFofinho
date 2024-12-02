@@ -23,7 +23,6 @@ const Header = () => {
   const [effectsEnabled, setEffectsEnabled] = useState(true);
 
   const handleNavigate = (redirectRoute) => {
-    // alert(`Conteúdo recomendado para crianças do grupo: ${ageGroup.ageText}`);
     setModalVisible(false)
     navigation.navigate('Loading', { redirectRoute });
   };
@@ -128,8 +127,6 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   searchIcon: {
-    // width: 24,
-    // height: 24,
   },
   modalOverlay: {
     flex: 1,
@@ -138,10 +135,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   background: {
-    // flex: 1,
-    // resizeMode: 'cover',
     backgroundColor: '#77C6C4',
-    // height: '100dvh',
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 22,

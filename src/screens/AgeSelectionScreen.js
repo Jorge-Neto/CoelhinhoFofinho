@@ -14,7 +14,6 @@ const AgeSelectionScreen = ({ navigation }) => {
   ];
 
   const handleSelection = (redirectRoute) => {
-    // alert(`Conteúdo recomendado para crianças do grupo: ${ageGroup.ageText}`);
     navigation.navigate('Loading', { redirectRoute });
   };
 

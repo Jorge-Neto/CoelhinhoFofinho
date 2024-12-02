@@ -116,8 +116,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'space-evenly',
     alignItems: 'center',
-    // width: 324,
-    // marginHorizontal: 'auto'
   },
   optionsLine: {
     width: '100%',

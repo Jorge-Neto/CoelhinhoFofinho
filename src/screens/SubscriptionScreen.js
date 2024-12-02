@@ -11,7 +11,6 @@ import {
 const SubscriptionScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Logo */}
       <View style={styles.header}>
         <Image
           source={require('../../assets/images/logo.png')}
@@ -19,8 +18,6 @@ const SubscriptionScreen = () => {
           resizeMode="contain"
         />
       </View>
-
-      {/* Avatar e Nome */}
       <View style={styles.profileSection}>
         <Image
           source={require('../../assets/images/avatar.png')}
@@ -28,8 +25,6 @@ const SubscriptionScreen = () => {
         />
         <Text style={styles.profileName}>LUKINHA</Text>
       </View>
-
-      {/* Planos e Preços */}
       <View style={styles.plansSection}>
         <Text style={styles.sectionTitle}>PLANOS E PREÇOS</Text>
         {[
@@ -55,8 +50,6 @@ const SubscriptionScreen = () => {
           </View>
         ))}
       </View>
-
-      {/* Pagamentos */}
       <View style={styles.section}>
         <Text style={styles.sectionTitle}>PAGAMENTOS</Text>
         <Text style={styles.sectionText}>Cartão</Text>
@@ -72,8 +65,6 @@ const SubscriptionScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-
-      {/* Botão */}
       <TouchableOpacity style={styles.subscribeButton}>
         <Text style={styles.subscribeButtonText}>CONTRATAR PLANO</Text>
       </TouchableOpacity>
@@ -103,7 +94,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 59,
     marginBottom: 57,
-    // marginTop: -30,
   },
   avatar: {
     width: 100,
@@ -120,12 +110,10 @@ const styles = StyleSheet.create({
     width: '90%',
     borderBottomColor: "#717171",
     borderBottomWidth: 2,
-    // marginVertical: 20,
     marginBottom: 27,
   },
   section: {
     width: '90%',
-    // marginBottom: 25,
   },
   sectionTitle: {
     fontSize: 20,
@@ -140,7 +128,6 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
   paymentInfo: {
-    // marginBottom: 10,
   },
   card: {
     flexDirection: 'row',
@@ -170,8 +157,6 @@ const styles = StyleSheet.create({
   planItem: {
     flexDirection: 'column',
     justifyContent: 'space-between',
-    // alignItems: 'center',
-    // alignItems: '',
     marginBottom: 40
   },
   planTitle: {

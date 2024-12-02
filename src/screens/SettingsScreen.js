@@ -18,7 +18,6 @@ const SettingsScreen = ({ navigation }) => {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Image
           source={require('../../assets/images/logo.png')}
@@ -29,7 +28,6 @@ const SettingsScreen = ({ navigation }) => {
 
       <View style={styles.content}>
 
-        {/* Perfil */}
         <View style={styles.profileSection}>
           <Image
             source={require('../../assets/images/avatar.png')}
@@ -38,7 +36,6 @@ const SettingsScreen = ({ navigation }) => {
           <Text style={styles.profileName}>LUKINHA</Text>
         </View>
 
-        {/* Assinatura */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>ASSINATURA E COBRANÇA</Text>
           <Text style={styles.sectionText}>Seu e-mail</Text>
@@ -46,7 +43,6 @@ const SettingsScreen = ({ navigation }) => {
           <Text style={styles.sectionText}>Telefone</Text>
         </View>
 
-        {/* Pagamento */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>PAGAMENTOS</Text>
           <Text style={styles.sectionText}>Cartão</Text>
@@ -66,7 +62,6 @@ const SettingsScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {/* Plan Details Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>DETALHES DO PLANO</Text>
           <View style={styles.planInfo}>
@@ -81,7 +76,6 @@ const SettingsScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        {/* Configurations Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>CONFIGURAÇÕES</Text>
           <TouchableOpacity style={styles.link}>
@@ -160,7 +154,6 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
   paymentInfo: {
-    // marginBottom: 10,
   },
   card: {
     flexDirection: 'row',
@@ -205,7 +198,6 @@ const styles = StyleSheet.create({
   planInfo: {
     flexDirection: 'row',
     alignItems: 'center',
-    // marginBottom: 10,
     marginBottom: 16
   },
   planName: {
