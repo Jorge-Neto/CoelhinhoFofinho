@@ -92,6 +92,8 @@ const styles = StyleSheet.create({
     maxWidth: 50,
     maxHeight: 36,
     marginHorizontal: 'auto',
+    // marginHorizontal: '50%',
+    // transform: [{ translateX: -100 }],
   },
   footerText: {
     color: '#fff',
@@ -99,6 +101,8 @@ const styles = StyleSheet.create({
     fontSize: 8,
     textAlign: 'center',
     marginHorizontal: 'auto',
+    // marginHorizontal: '50%',
+    // transform: [{ translateX: -100 }],
     marginTop: 2,
   },
 })

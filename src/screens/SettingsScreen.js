@@ -10,7 +10,12 @@ import {
 
 import Ionicons from '@expo/vector-icons/Ionicons'
 
-const SettingsScreen = () => {
+const SettingsScreen = ({ navigation }) => {
+
+  const handleNavigation = (redirectRoute) => {
+    navigation.navigate('Loading', { redirectRoute });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Header */}
@@ -70,7 +75,7 @@ const SettingsScreen = () => {
               <Text style={styles.planBadgeText}>ULTRA HD</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={styles.link} onPress={() => handleNavigation('Subscription')}>
             <Text style={styles.linkText}>Alterar plano</Text>
             <Ionicons name="arrow-forward" size={13} color="#000000" />
           </TouchableOpacity>
@@ -89,7 +94,7 @@ const SettingsScreen = () => {
             <Ionicons name="arrow-forward" size={13} color="#000000" />
 
           </TouchableOpacity>
-          <TouchableOpacity style={styles.link}>
+          <TouchableOpacity style={styles.link} onPress={() => handleNavigation('Splash')}>
             <Text style={styles.linkText}>Sair da conta</Text>
             <Ionicons name="arrow-forward" size={13} color="#000000" />
 
@@ -104,7 +109,7 @@ const SettingsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     alignItems: 'center',
@@ -188,6 +193,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#717171',
     width: 200,
     marginHorizontal: 'auto'
+    // marginHorizontal: '50%',
+    // transform: [{ translateX: -100 }],
   },
   cancelButtonText: {
     fontSize: 13,
