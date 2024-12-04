@@ -12,3 +12,6 @@ Para instalar as dependências, abra terminal e execute o comando
 
 Depois, execute o projeto com
 `yarn start`
+
+Para gerar o APK da aplicação
+`eas build --platform android --profile preview`

@@ -18,10 +18,18 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.CoelhinhoFofinho",
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8ff9c704-e6c5-43b9-b927-aad79dc8c1f8"
+      }
+    },
+    "owner": "jorgeoliveiran"
   }
 }
