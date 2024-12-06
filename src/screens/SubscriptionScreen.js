@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   profileName: {
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 'regular',
     color: '#717171',
   },
   plansSection: {
@@ -117,13 +117,13 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 'regular',
     color: '#717171',
     marginBottom: 24,
   },
   sectionText: {
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 'regular',
     color: '#717171',
     marginBottom: 11,
   },
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   paymentButtonText: {
     fontSize: 12,
     color: '#717171',
-    fontWeight: 400,
+    fontWeight: 'regular',
     textAlign: 'left',
   },
   planItem: {
@@ -164,17 +164,17 @@ const styles = StyleSheet.create({
   },
   planName: {
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 'regular',
   },
   planLevel: {
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 'regular',
     color: '#717171',
     marginLeft: 4
   },
   planDescription: {
     fontSize: 17,
-    fontWeight: 400,
+    fontWeight: 'regular',
     color: '#717171',
     marginTop: 12,
     marginRight: 'auto'
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
   },
   planPrice: {
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 'regular',
   },
   paymentSection: {
     width: '90%',

@@ -23,7 +23,7 @@ const AdventureSelectionScreen = ({ navigation }) => {
     >
       <View style={styles.container}>
         <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
-          <Text style={styles.backArrow}><Ionicons name="arrow-back" size={46} color="white" /></Text>
+          <Text><Ionicons name="arrow-back" size={47} color="white" /></Text>
         </TouchableOpacity>
 
         <Text style={styles.title}>QUAL AVENTURA VAMOS EMBARCAR?</Text>
@@ -99,22 +99,22 @@ const styles = StyleSheet.create({
   backButton: {
   },
   title: {
+    width: '70%',
     fontSize: 21,
-    fontWeight: 700,
+    fontWeight: 'bold',
     color: '#FFFFFF',
-    marginTop: 12,
     marginTop: 12,
   },
   subtitle: {
     fontSize: 18,
-    fontWeight: 400,
+    fontWeight: 'Regular',
     color: '#FFFFFF',
-    marginTop: 12,
-    marginBottom: 20,
+    marginTop: 9,
+    marginBottom: 34,
   },
   optionsContainer: {
     flex: 1,
-    justifyContent: 'space-evenly',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   optionsLine: {
@@ -128,11 +128,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#7FC7C0',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
     borderRadius: 100,
-    width: 139.13,
-    height: 139.13,
+    width: 139,
+    height: 139,
   },
   optionButton: {
     alignItems: 'center',
@@ -140,24 +138,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#7FC7C0',
     width: 169,
     borderRadius: 2.56,
-    paddingVertical: 4,
+    paddingVertical: 3.5,
     boxShadow: '0px 4px 4px 0px #00000040',
   },
   buttonBlue: {
     backgroundColor: '#889DD1',
-  },
-  iconWrapper: {
-    backgroundColor: '#7FC7C0',
-    borderRadius: 50,
-    padding: 10,
-    marginRight: 10,
   },
   icon: {
     resizeMode: 'contain',
   },
   buttonText: {
     fontSize: 20,
-    fontWeight: 600,
+    fontWeight: 'semibold',
     color: '#FFFFFF',
   },
 });

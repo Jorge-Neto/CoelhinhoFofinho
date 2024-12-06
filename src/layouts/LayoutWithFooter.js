@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     color: '#fff',
-    fontWeight: 700,
+    fontWeight: 'bold',
     fontSize: 8,
     textAlign: 'center',
     marginHorizontal: 'auto',

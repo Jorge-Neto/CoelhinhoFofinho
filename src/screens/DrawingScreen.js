@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   },
   carouselTitle: {
     fontSize: 20,
-    fontWeight: 600,
+    fontWeight: 'semibold',
     marginBottom: 7,
     textAlign: 'center',
     textTransform: 'uppercase',
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 4,
     fontSize: 11,
-    fontWeight: 600,
+    fontWeight: 'semibold',
     color: '#FDFDFD',
     textAlign: 'center'
   },

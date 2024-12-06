@@ -8,9 +8,9 @@ import faseTres from '../../assets/images/habbits/fase-tres.png';
 
 const AgeSelectionScreen = ({ navigation }) => {
   const ageGroups = [
-    { id: 1, imageSource: faseUm, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
-    { id: 2, imageSource: faseDois, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
-    { id: 3, imageSource: faseTres, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
+    { id: 1, iconStyles: { maxWidth: 69, maxHeight: 69 }, imageSource: faseUm, optionText: 'Pré-escolar', ageText: 'Até 3 anos' },
+    { id: 2, iconStyles: { maxWidth: 69, maxHeight: 69 }, imageSource: faseDois, optionText: 'Crianças Menores', ageText: 'De 4 a 6 anos' },
+    { id: 3, iconStyles: { maxWidth: 73, maxHeight: 73 }, imageSource: faseTres, optionText: 'Crianças Maiores', ageText: 'De 7 a 9 anos' },
   ];
 
   const handleSelection = (redirectRoute) => {
@@ -32,7 +32,7 @@ const AgeSelectionScreen = ({ navigation }) => {
           <TouchableOpacity key={group.id} style={styles.optionButton} onPress={() => handleSelection("AdventureSelectionScreen")}>
             <Image
               source={group.imageSource}
-              style={styles.icon}
+              style={group.iconStyles}
             />
             <Text style={styles.optionText}>{group.optionText}</Text>
             <Text style={styles.ageText}>{group.ageText}</Text>
@@ -52,52 +52,53 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     padding: 20,
+    paddingTop: 78
   },
   title: {
     fontSize: 18,
-    fontWeight: 700,
+    fontWeight: 'bold',
     width: '82%',
-    marginBottom: 12,
+    marginBottom: 6,
     color: '#fff',
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 14,
-    fontWeight: 400,
+    fontWeight: 'regular',
     width: '78%',
     color: '#fff',
     textAlign: 'center',
-    marginBottom: 38,
+    marginBottom: 36,
   },
   optionButton: {
-    width: '90%',
-    backgroundColor: '#FFEC8A',
+    width: 272,
+    backgroundColor: '#FCED93',
     paddingTop: 16,
     paddingBottom: 14,
     borderRadius: 13,
     alignItems: 'center',
     marginBottom: 19,
-    elevation: 3,
+    elevation: 1,
     boxShadow: 'none',
   },
   icon: {
     maxWidth: 73,
     maxHeight: 73,
-    marginBottom: 5,
   },
   optionText: {
     fontSize: 24,
     fontWeight: '500',
     color: '#889DD1',
+    marginBottom: 0,
   },
   ageText: {
     fontSize: 16,
     fontWeight: '300',
     color: '#889DD1',
-    marginTop: 5,
+    marginTop: 0,
   },
 });
 

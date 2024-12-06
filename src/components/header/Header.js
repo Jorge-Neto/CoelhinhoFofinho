@@ -113,8 +113,6 @@ const styles = StyleSheet.create({
     marginTop: 69,
     marginBottom: 33,
     marginHorizontal: 29.5,
-    borderBottomWidth: 1,
-    borderBottomColor: '#DDD',
   },
   avatar: {
     width: 61,
@@ -161,7 +159,7 @@ const styles = StyleSheet.create({
   },
   modalTitle: {
     fontSize: 20,
-    fontWeight: 400,
+    fontWeight: 'regular',
     color: '#FFFFFF',
   },
   optionsContainer: {
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
     marginBottom: 1,
   },
   toggleText: {
-    fontWeight: 400,
+    fontWeight: 'regular',
     fontSize: 20,
     color: '#FFFFFF',
     textTransform: 'uppercase',
@@ -189,7 +187,7 @@ const styles = StyleSheet.create({
   },
   modalButtonText: {
     textAlign: 'center',
-    fontWeight: 400,
+    fontWeight: 'regular',
     fontSize: 20,
     color: '#FBF3B8',
     textTransform: 'uppercase',

@@ -62,6 +62,8 @@ const LoginScreen = ({ navigation }) => {
             />
           </TouchableOpacity>
 
+          <View style={styles.space} />
+
           <TouchableOpacity
             style={[styles.socialButton, styles.facebookButton]}
             onPress={() => alert('Login com Facebook')}
@@ -90,23 +92,24 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    // padding: 20,
   },
   logo: {
     width: 254,
     height: 110,
+    marginTop: 100,
     marginBottom: 20,
   },
   welcomeText: {
     fontSize: 31,
-    fontWeight: 700,
+    fontWeight: 'bold',
     color: '#FFFFFF',
     textAlign: 'center',
     marginTop: 51,
     marginBottom: 20,
   },
   subText: {
-    marginHorizontal: 40,
+    marginHorizontal: 60,
     fontSize: 28,
     fontWeight: 300,
     color: '#FFFFFF',
@@ -133,7 +136,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#C76280',
     color: '#0000004D',
     alignItems: 'center',
-    marginBottom: 20,
+    marginBottom: 14,
     elevation: 5,
   },
   socialButtonsContainer: {
@@ -141,6 +144,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '90%',
     columnGap: '32px',
+  },
+  space: {
+    width: 34
   },
   socialButton: {
     flex: 1,
@@ -150,19 +156,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0E0E0',
     padding: 10,
     borderRadius: 10,
-    marginHorizontal: 5,
+    // marginHorizontal: 5,
+    height: 53,
+    gap: 34
   },
   googleButton: {
     backgroundColor: '#FFFFFF',
-    width: '121px',
+    width: 121,
   },
   facebookButton: {
     backgroundColor: '#1877F2',
-    width: '121px',
+    width: 121,
   },
   icon: {
-    width: 24,
-    height: 24,
+    width: 36,
+    height: 36,
   },
   buttonText: {
     color: '#FFFFFF',
