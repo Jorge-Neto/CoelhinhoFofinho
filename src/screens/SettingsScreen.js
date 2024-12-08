@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   Text,
@@ -6,25 +6,49 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Pressable,
+  Animated
 } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons'
 
 const SettingsScreen = ({ navigation }) => {
+  const scaleValue = useRef(new Animated.Value(1)).current;
+
+  const handlePressIn = () => {
+    Animated.spring(scaleValue, {
+      toValue: 1.01,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const handlePressOut = () => {
+    Animated.spring(scaleValue, {
+      toValue: 1,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const handleNavigation = (redirectRoute) => {
     navigation.navigate('Loading', { redirectRoute });
   };
 
+  const handleLogout = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Splash' }],
+    });
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
+      <Pressable onPress={() => navigation.replace("AdventureSelectionScreen")} style={styles.header}>
         <Image
           source={require('../../assets/images/logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
-      </View>
+      </Pressable>
 
       <View style={styles.content}>
 
@@ -70,10 +94,18 @@ const SettingsScreen = ({ navigation }) => {
               <Text style={styles.planBadgeText}>ULTRA HD</Text>
             </View>
           </View>
-          <TouchableOpacity style={styles.link} onPress={() => handleNavigation('Subscription')}>
-            <Text style={styles.linkText}>Alterar plano</Text>
-            <Ionicons name="arrow-forward" size={13} color="#000000" />
-          </TouchableOpacity>
+          <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+            <Pressable style={({ pressed }) => [
+              styles.link,
+              pressed && styles.linkPressed,
+            ]} onPressIn={handlePressIn}
+              onPressOut={handlePressOut}
+
+              onPress={() => handleNavigation('Subscription')}>
+              <Text style={styles.linkText}>Alterar plano</Text>
+              <Ionicons name="arrow-forward" size={13} color="#000000" />
+            </Pressable>
+          </Animated.View>
         </View>
 
         <View style={styles.section}>
@@ -88,11 +120,18 @@ const SettingsScreen = ({ navigation }) => {
             <Ionicons name="arrow-forward" size={13} color="#000000" />
 
           </TouchableOpacity>
-          <TouchableOpacity style={styles.link} onPress={() => handleNavigation('Splash')}>
-            <Text style={styles.linkText}>Sair da conta</Text>
-            <Ionicons name="arrow-forward" size={13} color="#000000" />
+          <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+            <Pressable style={({ pressed }) => [
+              styles.link,
+              pressed && styles.linkPressed,
+            ]} onPressIn={handlePressIn}
+              onPressOut={handlePressOut}
 
-          </TouchableOpacity>
+              onPress={handleLogout}>
+              <Text style={styles.linkText}>Sair da conta</Text>
+              <Ionicons name="arrow-forward" size={13} color="#000000" />
+            </Pressable>
+          </Animated.View>
         </View>
 
       </View>
@@ -221,7 +260,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    maxWidth: 353
+    maxWidth: 353,
+    padding: 4
+  },
+  linkPressed: {
+    backgroundColor: '#B3B3B3',
   },
   linkText: {
     fontSize: 20,

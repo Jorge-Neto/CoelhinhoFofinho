@@ -16,6 +16,28 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native';
 import background from '../../../assets/images/background.png';
 
+const CustomSwitch = ({ value, onValueChange, label }) => {
+  return (
+    <View style={styles.toggleContainer}>
+      <Text style={styles.toggleText}>{label}</Text>
+      <Pressable
+        style={[
+          styles.switchBase,
+          value ? styles.switchActive : styles.switchInactive,
+        ]}
+        onPress={() => onValueChange(!value)}
+      >
+        <View
+          style={[
+            styles.switchThumb,
+            value ? styles.thumbActive : styles.thumbInactive,
+          ]}
+        />
+      </Pressable>
+    </View>
+  );
+};
+
 const Header = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
@@ -36,7 +58,7 @@ const Header = () => {
         />
       </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => navigation.navigate("AdventureSelectionScreen")}>
+      <TouchableOpacity onPress={() => navigation.replace("AdventureSelectionScreen")}>
         <Image
           source={require('../../../assets/images/logo.png')}
           style={styles.logo}
@@ -71,32 +93,35 @@ const Header = () => {
                 <Text style={styles.modalTitle}>LUKINHA</Text>
               </View>
               <View style={styles.optionsContainer}>
-                <View style={styles.toggleContainer}>
-                  <Text style={styles.toggleText}>Música do App</Text>
-                  <Switch
-                    value={musicEnabled}
-                    onValueChange={setMusicEnabled}
-                    trackColor={{ false: '#767577', true: '#D9D9D9' }}
-                    thumbColor={musicEnabled ? '#ACD29C' : '#f4f3f4'}
-                  />
-                </View>
-                <View style={styles.toggleContainer}>
-                  <Text style={styles.toggleText}>Efeitos Sonoros</Text>
-                  <Switch
-                    value={effectsEnabled}
-                    onValueChange={setEffectsEnabled}
-                    trackColor={{ false: '#767577', true: '#D9D9D9' }}
-                    thumbColor={effectsEnabled ? '#ACD29C' : '#f4f3f4'}
-                  />
-                </View>
+                <CustomSwitch
+                  value={musicEnabled}
+                  onValueChange={setMusicEnabled}
+                  label="Música do App"
+                />
+                <CustomSwitch
+                  value={effectsEnabled}
+                  onValueChange={setEffectsEnabled}
+                  label="Efeitos Sonoros"
+                />
               </View>
-              <TouchableOpacity style={styles.modalButton} onPress={() => console.log('Mudar Perfil')}>
-                <Text style={styles.modalButtonText}>Mudar Perfil</Text>
-
-              </TouchableOpacity >
-              <TouchableOpacity style={styles.modalButton} onPress={() => handleNavigate("Settings")}>
-                <Text style={styles.modalButtonText}>Configurações</Text>
-              </TouchableOpacity >
+              <Pressable onPress={() => console.log('Mudar Perfil')}
+                style={({ pressed }) => [
+                  styles.modalButton,
+                  pressed && styles.modalButtonPressed,
+                ]}>
+                {({ pressed }) => (
+                  <Text style={[styles.modalButtonText, pressed && styles.modalButtonTextPressed]}>Mudar Perfil</Text>
+                )}
+              </Pressable >
+              <Pressable onPress={() => handleNavigate("Settings")}
+                style={({ pressed }) => [
+                  styles.modalButton,
+                  pressed && styles.modalButtonPressed,
+                ]}>
+                {({ pressed }) => (
+                  <Text style={[styles.modalButtonText, pressed && styles.modalButtonTextPressed]}>Configurações</Text>
+                )}
+              </Pressable >
             </ImageBackground>
           </Pressable>
         </Pressable>
@@ -163,6 +188,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   optionsContainer: {
+    gap: 15,
     marginBottom: 91
   },
   toggleContainer: {
@@ -185,12 +211,44 @@ const styles = StyleSheet.create({
     width: 231,
     borderRadius: 7
   },
+  modalButtonPressed: {
+    backgroundColor: '#626262',
+  },
   modalButtonText: {
     textAlign: 'center',
     fontWeight: 'regular',
     fontSize: 20,
     color: '#FBF3B8',
     textTransform: 'uppercase',
+  },
+  modalButtonTextPressed: {
+    color: '#FFFFFF',
+  },
+  switchBase: {
+    width: 62,
+    height: 23,
+    borderRadius: 5,
+    justifyContent: 'center',
+    backgroundColor: '#767577',
+  },
+  switchActive: {
+    backgroundColor: '#D9D9D9',
+  },
+  switchInactive: {
+    backgroundColor: '#D9D9D9',
+  },
+  switchThumb: {
+    width: 31,
+    height: 23,
+    borderRadius: 5,
+  },
+  thumbActive: {
+    backgroundColor: '#ACD29C',
+    alignSelf: 'flex-end',
+  },
+  thumbInactive: {
+    backgroundColor: '#f4f3f4',
+    alignSelf: 'flex-start',
   },
 });
 

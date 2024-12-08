@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
 
 import background from '../../assets/images/background.png';
 import videoIcon from '../../assets/images/icons/video-icon.png';
@@ -12,7 +12,7 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 const AdventureSelectionScreen = ({ navigation }) => {
 
   const handleNavigate = (selectedTab) => {
-    navigation.navigate(selectedTab, { tab: selectedTab });
+    navigation.navigate('Loading', { redirectRoute: selectedTab });
   };
 
   return (
@@ -22,60 +22,140 @@ const AdventureSelectionScreen = ({ navigation }) => {
       style={styles.background}
     >
       <View style={styles.container}>
-        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
-          <Text><Ionicons name="arrow-back" size={47} color="white" /></Text>
-        </TouchableOpacity>
+        <Pressable style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
+          {({ pressed }) => (
+            <Text><Ionicons name="arrow-back" size={47} color={pressed ? '#889DD1' : 'white'} /></Text>
+          )}
+        </Pressable>
 
         <Text style={styles.title}>QUAL AVENTURA VAMOS EMBARCAR?</Text>
         <Text style={styles.subtitle}>ESCOLHA UMA DAS OPÇÕES!</Text>
 
         <View style={styles.optionsContainer}>
           {/* DESENHOS */}
-          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Drawing')}>
-            <View style={styles.iconButton}>
-              <Image source={videoIcon} style={styles.icon} />
-            </View>
-            <View
-              style={styles.optionButton}>
-              <Text style={styles.buttonText}>DESENHOS</Text>
-            </View>
-          </TouchableOpacity>
+          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Drawing')}>
+            {({ pressed }) => (
+              <>
+                <View
+                  style={[
+                    styles.iconButton,
+                    pressed && styles.iconButtonPressed,
+                  ]}>
+                  <Image source={videoIcon} style={[
+                    styles.icon,
+                    pressed && styles.iconPressed,
+                  ]} />
+                </View>
+
+                <View
+                  style={[
+                    styles.optionButton,
+                    pressed && styles.optionButtonPressed,
+                  ]}>
+
+                  <Text
+                    style={[
+                      styles.buttonText,
+                      pressed && styles.textPressed,
+                    ]}>DESENHOS</Text>
+                </View>
+              </>
+            )}
+          </Pressable>
           {/* ESTUDAR */}
-          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Study')}>
-            <View
-              style={[styles.optionButton, styles.buttonBlue]}
-            >
-              <Text style={styles.buttonText}>ESTUDAR</Text>
-            </View>
-            <View style={[styles.iconButton, styles.buttonBlue]}
-            >
-              <Image source={studyIcon} style={styles.icon} />
-            </View>
-          </TouchableOpacity>
+          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Study')}>
+            {({ pressed }) => (
+              <>
+                <View
+                  style={[
+                    styles.optionButton,
+                    styles.buttonBlue,
+                    pressed && styles.buttonBluePressed,
+                  ]}>
+
+                  <Text
+                    style={[
+                      styles.buttonText,
+                      pressed && styles.textPressed,
+                    ]}>ESTUDAR</Text>
+                </View>
+
+                <View
+                  style={[
+                    styles.iconButton,
+                    styles.buttonBlue,
+                    pressed && styles.buttonBluePressed,
+                  ]}>
+                  <Image source={studyIcon} style={[
+                    styles.icon,
+                    pressed && styles.iconPressed,
+                  ]} />
+                </View>
+              </>
+            )}
+          </Pressable>
           {/* APRENDER */}
-          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Learning')}>
-            <View style={styles.iconButton}
-            >
-              <Image source={learnIcon} style={styles.icon} />
-            </View>
-            <View
-              style={styles.optionButton}
-            >
-              <Text style={styles.buttonText}>APRENDER</Text>
-            </View>
-          </TouchableOpacity>
+          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Learning')}>
+            {({ pressed }) => (
+              <>
+                <View
+                  style={[
+                    styles.iconButton,
+                    pressed && styles.iconButtonPressed,
+                  ]}>
+                  <Image source={learnIcon} style={[
+                    styles.icon,
+                    pressed && styles.iconPressed,
+                  ]} />
+                </View>
+
+                <View
+                  style={[
+                    styles.optionButton,
+                    pressed && styles.optionButtonPressed,
+                  ]}>
+
+                  <Text
+                    style={[
+                      styles.buttonText,
+                      pressed && styles.textPressed,
+                    ]}>APRENDER</Text>
+                </View>
+              </>
+            )}
+          </Pressable>
           {/* JOGAR */}
-          <TouchableOpacity style={styles.optionsLine} onPress={() => handleNavigate('Game')}>
-            <View
-              style={[styles.optionButton, styles.buttonBlue]}
-            >
-              <Text style={styles.buttonText}>JOGAR</Text>
-            </View>
-            <View style={[styles.iconButton, styles.buttonBlue]}
-            >
-              <Image source={gameIcon} style={styles.icon} />
-            </View>
-          </TouchableOpacity>
+          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Game')}>
+            {({ pressed }) => (
+              <>
+                <View
+                  style={[
+                    styles.optionButton,
+                    styles.buttonBlue,
+                    pressed && styles.buttonBluePressed,
+                  ]}>
+
+                  <Text
+                    style={[
+                      styles.buttonText,
+                      pressed && styles.textPressed,
+                    ]}>JOGAR</Text>
+                </View>
+
+                <View
+                  style={[
+                    styles.iconButton,
+                    styles.buttonBlue,
+                    pressed && styles.buttonBluePressed,
+                  ]}>
+                  <Image source={gameIcon} style={[
+                    styles.icon,
+                    pressed && styles.iconPressed,
+                  ]} />
+                </View>
+              </>
+            )}
+          </Pressable>
         </View>
       </View>
     </ImageBackground>
@@ -132,25 +212,40 @@ const styles = StyleSheet.create({
     width: 139,
     height: 139,
   },
+  iconButtonPressed: {
+    backgroundColor: '#6EE9E6',
+  },
   optionButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#7FC7C0',
+    backgroundColor: '#77C6C4',
     width: 169,
     borderRadius: 2.56,
     paddingVertical: 3.5,
     boxShadow: '0px 4px 4px 0px #00000040',
   },
+  optionButtonPressed: {
+    backgroundColor: '#6EE9E6',
+  },
   buttonBlue: {
     backgroundColor: '#889DD1',
   },
+  buttonBluePressed: {
+    backgroundColor: '#B5CAFF',
+  },
   icon: {
     resizeMode: 'contain',
+  },
+  iconPressed: {
+    tintColor: '#4F4F4F',
   },
   buttonText: {
     fontSize: 20,
     fontWeight: 'semibold',
     color: '#FFFFFF',
+  },
+  textPressed: {
+    color: '#4F4F4F',
   },
 });
 

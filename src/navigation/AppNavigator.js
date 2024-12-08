@@ -18,7 +18,14 @@ const Stack = createStackNavigator();
 const AppNavigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="Splash" screenOptions={{
+        headerShown: false,
+        cardStyleInterpolator: ({ current }) => ({
+          cardStyle: {
+            opacity: current.progress,
+          },
+        }),
+      }}>
         <Stack.Screen name="Splash" component={SplashScreen} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="AgeSelectionScreen" component={AgeSelectionScreen} />

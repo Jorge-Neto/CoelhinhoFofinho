@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   ImageBackground,
+  Pressable,
 } from 'react-native';
 
 
@@ -44,12 +45,19 @@ const LoginScreen = ({ navigation }) => {
           style={styles.input}
         />
 
-        <TouchableOpacity
-          style={styles.loginButton}
+        <Pressable
+          style={({ pressed }) => [
+            styles.loginButton,
+            pressed && styles.loginButtonPressed,
+          ]}
           onPress={() => navigation.navigate('AgeSelectionScreen')}
         >
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+          {({ pressed }) => (
+            <Text style={[styles.buttonText, pressed && styles.buttonTextPressed]}>
+              Login
+            </Text>
+          )}
+        </Pressable>
 
         <View style={styles.socialButtonsContainer}>
           <TouchableOpacity
@@ -117,32 +125,33 @@ const styles = StyleSheet.create({
     marginBottom: 61,
   },
   input: {
-    width: '90%',
-    padding: 15,
+    width: '70%',
+    paddingVertical: 12,
     borderRadius: 10,
     marginBottom: 15,
     backgroundColor: '#FCED93B2',
+    color: '#0000004D',
     fontSize: 16,
-    elevation: 2,
-    border: 0,
     textAlign: 'center',
     boxShadow: '0px 4px 4px 0px #00000040',
 
   },
   loginButton: {
-    width: '90%',
+    width: '70%',
     padding: 15,
     borderRadius: 10,
     backgroundColor: '#C76280',
-    color: '#0000004D',
     alignItems: 'center',
     marginBottom: 14,
     elevation: 5,
   },
+  loginButtonPressed: {
+    backgroundColor: '#FF5285',
+  },
   socialButtonsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '90%',
+    width: '70%',
     columnGap: '32px',
   },
   space: {
@@ -173,7 +182,12 @@ const styles = StyleSheet.create({
     height: 36,
   },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#0000004D',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  buttonTextPressed: {
+    color: '#FFFFFF82',
     fontSize: 16,
     fontWeight: 'bold',
   },

@@ -9,33 +9,33 @@ const LearningScreen = () => {
     {
       title: 'DESCOBRINDO AS CORES',
       items: [
-        { id: 1, title: 'Arco-íris Mágico: Conhecendo as Cores do Céu!', image: require('../../assets/images/screens/learn/descobrindo-cores-1.png') },
-        { id: 2, title: 'Vamos Pintar: Vermelho, Amarelo e Azul!', image: require('../../assets/images/screens/learn/descobrindo-cores-2.png') },
-        { id: 3, title: 'Qual é a Cor? Brincando com Cores!', image: require('../../assets/images/screens/learn/descobrindo-cores-3.png') },
+        { id: 1, duration: '2:55', title: 'Arco-íris Mágico: Conhecendo as Cores do Céu!', image: require('../../assets/images/screens/learn/descobrindo-cores-1.png') },
+        { id: 2, duration: '3:19', title: 'Vamos Pintar: Vermelho, Amarelo e Azul!', image: require('../../assets/images/screens/learn/descobrindo-cores-2.png') },
+        { id: 3, duration: '3:19', title: 'Qual é a Cor? Brincando com Cores!', image: require('../../assets/images/screens/learn/descobrindo-cores-3.png') },
       ],
     },
     {
       title: 'ANIMAIS DA FAZENDA',
       items: [
-        { id: 4, title: 'Muuuuu! A Vaca e Seus Amigos!', image: require('../../assets/images/screens/learn/animais-fazenda-1.png') },
-        { id: 5, title: 'Oink Oink! Conheça o Porquinho da Fazenda', image: require('../../assets/images/screens/learn/animais-fazenda-2.png') },
-        { id: 6, title: 'Quem Faz Có Có Ri Có? O Galo e a Fazenda!', image: require('../../assets/images/screens/learn/animais-fazenda-3.png') },
+        { id: 4, duration: '2:55', title: 'Muuuuu! A Vaca e Seus Amigos!', image: require('../../assets/images/screens/learn/animais-fazenda-1.png') },
+        { id: 5, duration: '3:19', title: 'Oink Oink! Conheça o Porquinho da Fazenda', image: require('../../assets/images/screens/learn/animais-fazenda-2.png') },
+        { id: 6, duration: '3:19', title: 'Quem Faz Có Có Ri Có? O Galo e a Fazenda!', image: require('../../assets/images/screens/learn/animais-fazenda-3.png') },
       ],
     },
     {
       title: 'BRINCANDO COM FORMAS E TAMANHOS',
       items: [
-        { id: 7, title: 'Pequeno ou Grande? Brincando com Tamanhos!', image: require('../../assets/images/screens/learn/formas-tamanhos-1.png') },
-        { id: 8, title: 'Circulo, Quadrado, Triângulo: Quem Está Aqui?', image: require('../../assets/images/screens/learn/formas-tamanhos-2.png') },
-        { id: 9, title: 'Formas Divertidas: Encontre o Par!', image: require('../../assets/images/screens/learn/formas-tamanhos-3.png') },
+        { id: 7, duration: '2:55', title: 'Pequeno ou Grande? Brincando com Tamanhos!', image: require('../../assets/images/screens/learn/formas-tamanhos-1.png') },
+        { id: 8, duration: '3:19', title: 'Circulo, Quadrado, Triângulo: Quem Está Aqui?', image: require('../../assets/images/screens/learn/formas-tamanhos-2.png') },
+        { id: 9, duration: '3:19', title: 'Formas Divertidas: Encontre o Par!', image: require('../../assets/images/screens/learn/formas-tamanhos-3.png') },
       ],
     },
     {
       title: 'CANTANDO OS NÚMEROS',
       items: [
-        { id: 10, title: 'Contando até 10 com Música e Diversão!', image: require('../../assets/images/screens/learn/cantando-numeros-1.png') },
-        { id: 11, title: '1, 2, 3! Vamos Contar Juntos!', image: require('../../assets/images/screens/learn/cantando-numeros-2.png') },
-        { id: 12, title: 'Quantos Bichinhos? Vamos Contar!', image: require('../../assets/images/screens/learn/cantando-numeros-3.png') },
+        { id: 10, duration: '2:55', title: 'Contando até 10 com Música e Diversão!', image: require('../../assets/images/screens/learn/cantando-numeros-1.png') },
+        { id: 11, duration: '3:19', title: '1, 2, 3! Vamos Contar Juntos!', image: require('../../assets/images/screens/learn/cantando-numeros-2.png') },
+        { id: 12, duration: '3:19', title: 'Quantos Bichinhos? Vamos Contar!', image: require('../../assets/images/screens/learn/cantando-numeros-3.png') },
       ],
     },
   ];
@@ -49,7 +49,12 @@ const LearningScreen = () => {
             <ScrollView horizontal style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
               {carousel.items.map((item) => (
                 <View key={item.id} style={styles.item}>
-                  <Image source={item.image} style={styles.itemImage} />
+                  <View style={styles.imageContainer}>
+                    <Image source={item.image} style={styles.itemImage} />
+                    <View style={styles.timeContainer}>
+                      <Text style={styles.timeText}>{item.duration}</Text>
+                    </View>
+                  </View>
                   <Text style={styles.itemText}>{item.title}</Text>
                 </View>
               ))}
@@ -92,12 +97,30 @@ const styles = StyleSheet.create({
     elevation: 2,
     overflow: 'hidden',
   },
+  imageContainer: {
+    position: 'relative',
+  },
   itemImage: {
     width: '100%',
     height: 120,
     resizeMode: 'cover',
     borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,
+
+  },
+  timeContainer: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    backgroundColor: '#505050',
+    borderRadius: 3,
+    paddingHorizontal: 3,
+    paddingVertical: 2,
+  },
+  timeText: {
+    fontSize: 10,
+    color: '#FFF',
+    fontWeight: 'bold',
   },
   itemText: {
     paddingVertical: 10,

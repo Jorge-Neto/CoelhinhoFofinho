@@ -6,18 +6,19 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  Pressable,
 } from 'react-native';
 
-const SubscriptionScreen = () => {
+const SubscriptionScreen = ({ navigation }) => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <View style={styles.header}>
+      <Pressable onPress={() => navigation.replace("AdventureSelectionScreen")} style={styles.header}>
         <Image
           source={require('../../assets/images/logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
-      </View>
+      </Pressable>
       <View style={styles.profileSection}>
         <Image
           source={require('../../assets/images/avatar.png')}
@@ -77,6 +78,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#FFFFFF',
     alignItems: 'center',
+    paddingBottom: 20
   },
   header: {
     width: '100%',
@@ -189,36 +191,17 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'regular',
   },
-  paymentSection: {
-    width: '90%',
-    marginVertical: 20,
-  },
-  paymentDetails: {
-    borderTopWidth: 1,
-    borderColor: '#E0E0E0',
-    paddingVertical: 10,
-  },
-  paymentCard: {
-    fontSize: 14,
-    marginBottom: 10,
-  },
-  changePayment: {
-    fontSize: 12,
-    color: '#007BFF',
-    textDecorationLine: 'underline',
-  },
   subscribeButton: {
-    width: '90%',
+    width: 201,
     backgroundColor: '#717171',
-    paddingVertical: 15,
     alignItems: 'center',
-    borderRadius: 5,
-    marginVertical: 20,
+    marginVertical: 28,
+    paddingVertical: 8,
   },
   subscribeButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 13,
+    fontWeight: 'regular',
   },
 });
 

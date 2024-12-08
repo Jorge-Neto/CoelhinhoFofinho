@@ -9,25 +9,25 @@ const DrawingScreen = () => {
     {
       title: 'Desenhos de Música',
       items: [
-        { id: 1, title: 'Borboletinha / Bolofofos', image: require('../../assets/images/screens/drawnings/desenho-musica-1.png') },
-        { id: 2, title: 'Dança Maluca / Bolofofos', image: require('../../assets/images/screens/drawnings/desenho-musica-2.png') },
-        { id: 3, title: 'Música Água de Coco / Bolofofos', image: require('../../assets/images/screens/drawnings/desenho-musica-3.png') },
+        { id: 1, duration: '2:55', title: 'Borboletinha / Bolofofos', image: require('../../assets/images/screens/drawnings/desenho-musica-1.png') },
+        { id: 2, duration: '3:19', title: 'Dança Maluca / Bolofofos', image: require('../../assets/images/screens/drawnings/desenho-musica-2.png') },
+        { id: 3, duration: '3:19', title: 'Música Água de Coco / Bolofofos', image: require('../../assets/images/screens/drawnings/desenho-musica-3.png') },
       ],
     },
     {
       title: 'Desenhos de Animais',
       items: [
-        { id: 4, title: 'Ao resgate dos Supercães', image: require('../../assets/images/screens/drawnings/desenho-animais-1.png') },
-        { id: 5, title: 'Patrulha Canina / Melhores Momentos', image: require('../../assets/images/screens/drawnings/desenho-animais-2.png') },
-        { id: 6, title: 'Peppa Pig', image: require('../../assets/images/screens/drawnings/desenho-animais-3.png') },
+        { id: 4, duration: '2:55', title: 'Ao resgate dos Supercães', image: require('../../assets/images/screens/drawnings/desenho-animais-1.png') },
+        { id: 5, duration: '3:19', title: 'Patrulha Canina / Melhores Momentos', image: require('../../assets/images/screens/drawnings/desenho-animais-2.png') },
+        { id: 6, duration: '3:19', title: 'Peppa Pig', image: require('../../assets/images/screens/drawnings/desenho-animais-3.png') },
       ],
     },
     {
       title: 'Desenhos de Aventuras',
       items: [
-        { id: 7, title: 'Dora / Enigmas e Jogos', image: require('../../assets/images/screens/drawnings/desenho-dora-1.png') },
-        { id: 8, title: 'Dora Aventureira / Melhores Amigos', image: require('../../assets/images/screens/drawnings/desenho-dora-2.png') },
-        { id: 9, title: 'Dora / As Aventuras dos Bebês', image: require('../../assets/images/screens/drawnings/desenho-dora-3.png') },
+        { id: 7, duration: '2:55', title: 'Dora / Enigmas e Jogos', image: require('../../assets/images/screens/drawnings/desenho-dora-1.png') },
+        { id: 8, duration: '3:19', title: 'Dora Aventureira / Melhores Amigos', image: require('../../assets/images/screens/drawnings/desenho-dora-2.png') },
+        { id: 9, duration: '3:19', title: 'Dora / As Aventuras dos Bebês', image: require('../../assets/images/screens/drawnings/desenho-dora-3.png') },
       ],
     },
   ];
@@ -41,7 +41,12 @@ const DrawingScreen = () => {
             <ScrollView horizontal style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
               {carousel.items.map((item) => (
                 <View key={item.id} style={styles.item}>
-                  <Image source={item.image} style={styles.itemImage} />
+                  <View style={styles.imageContainer}>
+                    <Image source={item.image} style={styles.itemImage} />
+                    <View style={styles.timeContainer}>
+                      <Text style={styles.timeText}>{item.duration}</Text>
+                    </View>
+                  </View>
                   <Text style={styles.itemText}>{item.title}</Text>
                 </View>
               ))}
@@ -84,6 +89,9 @@ const styles = StyleSheet.create({
     elevation: 2,
     overflow: 'hidden',
   },
+  imageContainer: {
+    position: 'relative',
+  },
   itemImage: {
     width: '100%',
     height: 120,
@@ -91,6 +99,20 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 6,
     borderBottomRightRadius: 6,
 
+  },
+  timeContainer: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    backgroundColor: '#505050',
+    borderRadius: 3,
+    paddingHorizontal: 3,
+    paddingVertical: 2,
+  },
+  timeText: {
+    fontSize: 10,
+    color: '#FFF',
+    fontWeight: 'bold',
   },
   itemText: {
     paddingVertical: 10,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, Pressable, } from 'react-native';
 
 import background from '../../assets/images/background.png';
 import faseUm from '../../assets/images/habbits/fase-um.png';
@@ -13,8 +13,8 @@ const AgeSelectionScreen = ({ navigation }) => {
     { id: 3, iconStyles: { maxWidth: 73, maxHeight: 73 }, imageSource: faseTres, optionText: 'Crianças Maiores', ageText: 'De 7 a 9 anos' },
   ];
 
-  const handleSelection = (redirectRoute) => {
-    navigation.navigate('Loading', { redirectRoute });
+  const handleSelection = () => {
+    navigation.navigate('AdventureSelectionScreen');
   };
 
   return (
@@ -29,14 +29,37 @@ const AgeSelectionScreen = ({ navigation }) => {
           Sua escolha afetará os tipos de conteúdos que ficarão disponíveis no app.
         </Text>
         {ageGroups.map((group) => (
-          <TouchableOpacity key={group.id} style={styles.optionButton} onPress={() => handleSelection("AdventureSelectionScreen")}>
-            <Image
-              source={group.imageSource}
-              style={group.iconStyles}
-            />
-            <Text style={styles.optionText}>{group.optionText}</Text>
-            <Text style={styles.ageText}>{group.ageText}</Text>
-          </TouchableOpacity>
+          <Pressable key={group.id}
+            style={({ pressed }) => [
+              styles.optionButton,
+              pressed && styles.optionButtonPressed,
+            ]}
+            onPress={handleSelection}>
+            {({ pressed }) => (
+              <>
+                <Image
+                  source={group.imageSource}
+                  style={group.iconStyles}
+                />
+                <Text
+                  style={[
+                    styles.optionText,
+                    pressed && styles.textPressed,
+                  ]}
+                >
+                  {group.optionText}
+                </Text>
+                <Text
+                  style={[
+                    styles.ageText,
+                    pressed && styles.textPressed,
+                  ]}
+                >
+                  {group.ageText}
+                </Text>
+              </>
+            )}
+          </Pressable>
         ))}
       </View>
     </ImageBackground>
@@ -84,6 +107,9 @@ const styles = StyleSheet.create({
     elevation: 1,
     boxShadow: 'none',
   },
+  optionButtonPressed: {
+    backgroundColor: '#FFE651',
+  },
   icon: {
     maxWidth: 73,
     maxHeight: 73,
@@ -100,6 +126,10 @@ const styles = StyleSheet.create({
     color: '#889DD1',
     marginTop: 0,
   },
+  textPressed: {
+    color: '#000000',
+  },
+
 });
 
 export default AgeSelectionScreen;

@@ -1,4 +1,4 @@
-import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
 import background from '../../assets/images/background.png';
@@ -26,34 +26,50 @@ const LayoutWithFooter = ({ children, activeTab }) => {
       <Header />
       <View style={styles.content}>{children}</View>
       <View style={styles.footer}>
-        <TouchableOpacity
-          style={[styles.footerButton, activeTab === 'Drawing' && styles.activeButton]}
+        <Pressable
+          style={styles.footerButton}
           onPress={() => handleNavigate('Drawing')}
         >
-          <Image style={styles.footerImage} source={videoIcon} />
-          <Text style={styles.footerText}>Desenhos</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.footerButton, activeTab === 'Study' && styles.activeButton]}
+          {({ pressed }) => (
+            <>
+              <Image style={[styles.footerImage, pressed && styles.activeButton]} source={videoIcon} />
+              <Text style={styles.footerText}>Desenhos</Text>
+            </>
+          )}
+        </Pressable>
+        <Pressable
+          style={styles.footerButton}
           onPress={() => handleNavigate('Study')}
         >
-          <Image style={styles.footerImage} source={studyIcon} />
-          <Text style={styles.footerText}>Estudar</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.footerButton, activeTab === 'Learning' && styles.activeButton]}
+          {({ pressed }) => (
+            <>
+              <Image style={[styles.footerImage, pressed && styles.activeButton]} source={studyIcon} />
+              <Text style={styles.footerText}>Estudar</Text>
+            </>
+          )}
+        </Pressable>
+        <Pressable
+          style={styles.footerButton}
           onPress={() => handleNavigate('Learning')}
         >
-          <Image style={styles.footerImage} source={learnIcon} />
-          <Text style={styles.footerText}>Aprender</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.footerButton, activeTab === 'Game' && styles.activeButton]}
+          {({ pressed }) => (
+            <>
+              <Image style={[styles.footerImage, pressed && styles.activeButton]} source={learnIcon} />
+              <Text style={styles.footerText}>Aprender</Text>
+            </>
+          )}
+        </Pressable>
+        <Pressable
+          style={styles.footerButton}
           onPress={() => handleNavigate('Game')}
         >
-          <Image style={styles.footerImage} source={gameIcon} />
-          <Text style={styles.footerText}>Jogos</Text>
-        </TouchableOpacity>
+          {({ pressed }) => (
+            <>
+              <Image style={[styles.footerImage, pressed && styles.activeButton]} source={gameIcon} />
+              <Text style={styles.footerText}>Jogos</Text>
+            </>
+          )}
+        </Pressable>
       </View>
     </ImageBackground>
   )
@@ -85,6 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   activeButton: {
+    tintColor: '#F8BB99',
   },
   footerImage: {
     objectFit: 'contain',
