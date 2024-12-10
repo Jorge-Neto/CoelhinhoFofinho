@@ -8,6 +8,7 @@ import {
   Image,
   ImageBackground,
   Pressable,
+  ScrollView
 } from 'react-native';
 
 
@@ -24,77 +25,84 @@ const LoginScreen = ({ navigation }) => {
       resizeMode="cover"
       style={styles.background}
     >
-      <View style={styles.container}>
-        <Image
-          source={logo}
-          style={styles.logo}
-        />
+      <ScrollView contentContainerStyle={styles.scrollContent}>
 
-        <Text style={styles.welcomeText}>Seja Bem-Vindo!</Text>
-        <Text style={styles.subText}>Vamos embarcar nessa juntos?</Text>
+        <View style={styles.container}>
+          <Image
+            source={logo}
+            style={styles.logo}
+          />
 
-        <TextInput
-          placeholder="Nome de Usuário"
-          placeholderTextColor="#888"
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Senha"
-          placeholderTextColor="#888"
-          secureTextEntry
-          style={styles.input}
-        />
+          <Text style={styles.welcomeText}>Seja Bem-Vindo!</Text>
+          <Text style={styles.subText}>Vamos embarcar nessa juntos?</Text>
 
-        <Pressable
-          style={({ pressed }) => [
-            styles.loginButton,
-            pressed && styles.loginButtonPressed,
-          ]}
-          onPress={() => navigation.navigate('AgeSelectionScreen')}
-        >
-          {({ pressed }) => (
-            <Text style={[styles.buttonText, pressed && styles.buttonTextPressed]}>
-              Login
-            </Text>
-          )}
-        </Pressable>
+          <TextInput
+            placeholder="Nome de Usuário"
+            placeholderTextColor="#888"
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Senha"
+            placeholderTextColor="#888"
+            secureTextEntry
+            style={styles.input}
+          />
 
-        <View style={styles.socialButtonsContainer}>
-          <TouchableOpacity
-            style={[styles.socialButton, styles.googleButton]}
-            onPress={() => alert('Login com Google')}
+          <Pressable
+            style={({ pressed }) => [
+              styles.loginButton,
+              pressed && styles.loginButtonPressed,
+            ]}
+            onPress={() => navigation.navigate('AgeSelectionScreen')}
           >
-            <Image
-              source={googleIcon}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
+            {({ pressed }) => (
+              <Text style={[styles.buttonText, pressed && styles.buttonTextPressed]}>
+                Login
+              </Text>
+            )}
+          </Pressable>
 
-          <View style={styles.space} />
+          <View style={styles.socialButtonsContainer}>
+            <TouchableOpacity
+              style={[styles.socialButton, styles.googleButton]}
+              onPress={() => alert('Login com Google')}
+            >
+              <Image
+                source={googleIcon}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
 
-          <TouchableOpacity
-            style={[styles.socialButton, styles.facebookButton]}
-            onPress={() => alert('Login com Facebook')}
-          >
-            <Image
-              source={facebookIcon}
-              style={styles.icon}
-            />
-          </TouchableOpacity>
+            <View style={styles.space} />
 
+            <TouchableOpacity
+              style={[styles.socialButton, styles.facebookButton]}
+              onPress={() => alert('Login com Facebook')}
+            >
+              <Image
+                source={facebookIcon}
+                style={styles.icon}
+              />
+            </TouchableOpacity>
+
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
+    flexGrow: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
     backgroundColor: '#acd29c',
     height: '100dvh'
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 72
   },
   container: {
     flex: 1,

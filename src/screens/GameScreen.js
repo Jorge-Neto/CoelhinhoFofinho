@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import LayoutWithFooter from '../layouts/LayoutWithFooter';
 
 const screenWidth = Dimensions.get('window').width;
@@ -56,10 +56,10 @@ const GameScreen = () => {
             <Text style={styles.carouselTitle}>{carousel.title}</Text>
             <ScrollView horizontal style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
               {carousel.items.map((item) => (
-                <View key={item.id} style={styles.item}>
+                <TouchableOpacity key={item.id} style={styles.item}>
                   <Image source={item.image} style={styles.itemImage} />
                   <Text style={styles.itemText}>{item.title}</Text>
-                </View>
+                </TouchableOpacity>
               ))}
             </ScrollView>
           </View>

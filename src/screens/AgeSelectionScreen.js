@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, Pressable, } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Image, ImageBackground, Pressable, } from 'react-native';
 
 import background from '../../assets/images/background.png';
 import faseUm from '../../assets/images/habbits/fase-um.png';
@@ -23,55 +23,63 @@ const AgeSelectionScreen = ({ navigation }) => {
       resizeMode="cover"
       style={styles.background}
     >
-      <View style={styles.container}>
-        <Text style={styles.title}>Escolha uma experiência de conteúdo para seu filho</Text>
-        <Text style={styles.subtitle}>
-          Sua escolha afetará os tipos de conteúdos que ficarão disponíveis no app.
-        </Text>
-        {ageGroups.map((group) => (
-          <Pressable key={group.id}
-            style={({ pressed }) => [
-              styles.optionButton,
-              pressed && styles.optionButtonPressed,
-            ]}
-            onPress={handleSelection}>
-            {({ pressed }) => (
-              <>
-                <Image
-                  source={group.imageSource}
-                  style={group.iconStyles}
-                />
-                <Text
-                  style={[
-                    styles.optionText,
-                    pressed && styles.textPressed,
-                  ]}
-                >
-                  {group.optionText}
-                </Text>
-                <Text
-                  style={[
-                    styles.ageText,
-                    pressed && styles.textPressed,
-                  ]}
-                >
-                  {group.ageText}
-                </Text>
-              </>
-            )}
-          </Pressable>
-        ))}
-      </View>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+
+        <View style={styles.container}>
+          <Text style={styles.title}>Escolha uma experiência de conteúdo para seu filho</Text>
+          <Text style={styles.subtitle}>
+            Sua escolha afetará os tipos de conteúdos que ficarão disponíveis no app.
+          </Text>
+          {ageGroups.map((group) => (
+            <Pressable key={group.id}
+              style={({ pressed }) => [
+                styles.optionButton,
+                pressed && styles.optionButtonPressed,
+              ]}
+              onPress={handleSelection}>
+              {({ pressed }) => (
+                <>
+                  <Image
+                    source={group.imageSource}
+                    style={group.iconStyles}
+                  />
+                  <Text
+                    style={[
+                      styles.optionText,
+                      pressed && styles.textPressed,
+                    ]}
+                  >
+                    {group.optionText}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.ageText,
+                      pressed && styles.textPressed,
+                    ]}
+                  >
+                    {group.ageText}
+                  </Text>
+                </>
+              )}
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
+
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
+    flexGrow: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
     backgroundColor: '#969aca',
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 45
   },
   container: {
     flex: 1,

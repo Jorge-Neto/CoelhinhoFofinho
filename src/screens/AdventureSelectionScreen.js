@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
 
 import background from '../../assets/images/background.png';
 import videoIcon from '../../assets/images/icons/video-icon.png';
@@ -21,154 +21,160 @@ const AdventureSelectionScreen = ({ navigation }) => {
       resizeMode="cover"
       style={styles.background}
     >
-      <View style={styles.container}>
-        <Pressable style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
-          {({ pressed }) => (
-            <Text><Ionicons name="arrow-back" size={47} color={pressed ? '#889DD1' : 'white'} /></Text>
-          )}
-        </Pressable>
-
-        <Text style={styles.title}>QUAL AVENTURA VAMOS EMBARCAR?</Text>
-        <Text style={styles.subtitle}>ESCOLHA UMA DAS OPÇÕES!</Text>
-
-        <View style={styles.optionsContainer}>
-          {/* DESENHOS */}
-          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Drawing')}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.container}>
+          <Pressable style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
             {({ pressed }) => (
-              <>
-                <View
-                  style={[
-                    styles.iconButton,
-                    pressed && styles.iconButtonPressed,
-                  ]}>
-                  <Image source={videoIcon} style={[
-                    styles.icon,
-                    pressed && styles.iconPressed,
-                  ]} />
-                </View>
-
-                <View
-                  style={[
-                    styles.optionButton,
-                    pressed && styles.optionButtonPressed,
-                  ]}>
-
-                  <Text
-                    style={[
-                      styles.buttonText,
-                      pressed && styles.textPressed,
-                    ]}>DESENHOS</Text>
-                </View>
-              </>
+              <Text><Ionicons name="arrow-back" size={47} color={pressed ? '#889DD1' : 'white'} /></Text>
             )}
           </Pressable>
-          {/* ESTUDAR */}
-          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Study')}>
-            {({ pressed }) => (
-              <>
-                <View
-                  style={[
-                    styles.optionButton,
-                    styles.buttonBlue,
-                    pressed && styles.buttonBluePressed,
-                  ]}>
 
-                  <Text
+          <Text style={styles.title}>QUAL AVENTURA VAMOS EMBARCAR?</Text>
+          <Text style={styles.subtitle}>ESCOLHA UMA DAS OPÇÕES!</Text>
+
+          <View style={styles.optionsContainer}>
+            {/* DESENHOS */}
+            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Drawing')}>
+              {({ pressed }) => (
+                <>
+                  <View
                     style={[
-                      styles.buttonText,
-                      pressed && styles.textPressed,
-                    ]}>ESTUDAR</Text>
-                </View>
+                      styles.iconButton,
+                      pressed && styles.iconButtonPressed,
+                    ]}>
+                    <Image source={videoIcon} style={[
+                      styles.icon,
+                      pressed && styles.iconPressed,
+                    ]} />
+                  </View>
 
-                <View
-                  style={[
-                    styles.iconButton,
-                    styles.buttonBlue,
-                    pressed && styles.buttonBluePressed,
-                  ]}>
-                  <Image source={studyIcon} style={[
-                    styles.icon,
-                    pressed && styles.iconPressed,
-                  ]} />
-                </View>
-              </>
-            )}
-          </Pressable>
-          {/* APRENDER */}
-          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Learning')}>
-            {({ pressed }) => (
-              <>
-                <View
-                  style={[
-                    styles.iconButton,
-                    pressed && styles.iconButtonPressed,
-                  ]}>
-                  <Image source={learnIcon} style={[
-                    styles.icon,
-                    pressed && styles.iconPressed,
-                  ]} />
-                </View>
-
-                <View
-                  style={[
-                    styles.optionButton,
-                    pressed && styles.optionButtonPressed,
-                  ]}>
-
-                  <Text
+                  <View
                     style={[
-                      styles.buttonText,
-                      pressed && styles.textPressed,
-                    ]}>APRENDER</Text>
-                </View>
-              </>
-            )}
-          </Pressable>
-          {/* JOGAR */}
-          <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Game')}>
-            {({ pressed }) => (
-              <>
-                <View
-                  style={[
-                    styles.optionButton,
-                    styles.buttonBlue,
-                    pressed && styles.buttonBluePressed,
-                  ]}>
+                      styles.optionButton,
+                      pressed && styles.optionButtonPressed,
+                    ]}>
 
-                  <Text
+                    <Text
+                      style={[
+                        styles.buttonText,
+                        pressed && styles.textPressed,
+                      ]}>DESENHOS</Text>
+                  </View>
+                </>
+              )}
+            </Pressable>
+            {/* ESTUDAR */}
+            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Study')}>
+              {({ pressed }) => (
+                <>
+                  <View
                     style={[
-                      styles.buttonText,
-                      pressed && styles.textPressed,
-                    ]}>JOGAR</Text>
-                </View>
+                      styles.optionButton,
+                      styles.buttonBlue,
+                      pressed && styles.buttonBluePressed,
+                    ]}>
 
-                <View
-                  style={[
-                    styles.iconButton,
-                    styles.buttonBlue,
-                    pressed && styles.buttonBluePressed,
-                  ]}>
-                  <Image source={gameIcon} style={[
-                    styles.icon,
-                    pressed && styles.iconPressed,
-                  ]} />
-                </View>
-              </>
-            )}
-          </Pressable>
+                    <Text
+                      style={[
+                        styles.buttonText,
+                        pressed && styles.textPressed,
+                      ]}>ESTUDAR</Text>
+                  </View>
+
+                  <View
+                    style={[
+                      styles.iconButton,
+                      styles.buttonBlue,
+                      pressed && styles.buttonBluePressed,
+                    ]}>
+                    <Image source={studyIcon} style={[
+                      styles.icon,
+                      pressed && styles.iconPressed,
+                    ]} />
+                  </View>
+                </>
+              )}
+            </Pressable>
+            {/* APRENDER */}
+            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Learning')}>
+              {({ pressed }) => (
+                <>
+                  <View
+                    style={[
+                      styles.iconButton,
+                      pressed && styles.iconButtonPressed,
+                    ]}>
+                    <Image source={learnIcon} style={[
+                      styles.icon,
+                      pressed && styles.iconPressed,
+                    ]} />
+                  </View>
+
+                  <View
+                    style={[
+                      styles.optionButton,
+                      pressed && styles.optionButtonPressed,
+                    ]}>
+
+                    <Text
+                      style={[
+                        styles.buttonText,
+                        pressed && styles.textPressed,
+                      ]}>APRENDER</Text>
+                  </View>
+                </>
+              )}
+            </Pressable>
+            {/* JOGAR */}
+            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Game')}>
+              {({ pressed }) => (
+                <>
+                  <View
+                    style={[
+                      styles.optionButton,
+                      styles.buttonBlue,
+                      pressed && styles.buttonBluePressed,
+                    ]}>
+
+                    <Text
+                      style={[
+                        styles.buttonText,
+                        pressed && styles.textPressed,
+                      ]}>JOGAR</Text>
+                  </View>
+
+                  <View
+                    style={[
+                      styles.iconButton,
+                      styles.buttonBlue,
+                      pressed && styles.buttonBluePressed,
+                    ]}>
+                    <Image source={gameIcon} style={[
+                      styles.icon,
+                      pressed && styles.iconPressed,
+                    ]} />
+                  </View>
+                </>
+              )}
+            </Pressable>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    flex: 1,
+    flexGrow: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
     backgroundColor: '#f39b92',
     height: '100dvh'
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 45
   },
   container: {
     flex: 1,
