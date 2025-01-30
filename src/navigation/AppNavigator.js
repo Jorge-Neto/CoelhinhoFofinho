@@ -12,6 +12,11 @@ import StudyScreen from '../screens/StudyScreen';
 import GameScreen from '../screens/GameScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import SubscriptionScreen from '../screens/SubscriptionScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
+import PaymentMethodScreen from '../screens/PaymentMethodScreen';
+import CancelSubscriptionScreen from '../screens/CancelSubscriptionScreen';
+import DeleteAccountScreen from '../screens/DeleteAccountScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +42,11 @@ const AppNavigator = () => {
         <Stack.Screen name="Game" component={GameScreen} />
         <Stack.Screen name="Settings" component={SettingsScreen} />
         <Stack.Screen name="Subscription" component={SubscriptionScreen} />
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+        <Stack.Screen name="PaymentMethod" component={PaymentMethodScreen} />
+        <Stack.Screen name="CancelSubscription" component={CancelSubscriptionScreen} />
+        <Stack.Screen name="DeleteAccount" component={DeleteAccountScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

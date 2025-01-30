@@ -21,7 +21,8 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
-    height: '100dvh'
+    height: '100dvh',
+    width: '100dvw'
   },
   content: {
     flex: 1,

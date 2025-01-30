@@ -4,15 +4,16 @@
     "slug": "CoelhinhoFofinho",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icons/icon.png",
+    "icon": "./assets/images/adaptive-icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#889DD1"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.CoelhinhoFofinho"
     },
     "android": {
       "adaptiveIcon": {
@@ -20,16 +21,18 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.CoelhinhoFofinho",
-      "versionCode": 1
+      "versionCode": 1,
+      "permissions": ["AUDIO_RECORDING"]
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
     },
+    "owner": "organizacaocoelhinhofofinho",
     "extra": {
       "eas": {
         "projectId": "8ff9c704-e6c5-43b9-b927-aad79dc8c1f8"
       }
     },
-    "owner": "jorgeoliveiran"
+    "plugins": ["expo-audio"]
   }
 }

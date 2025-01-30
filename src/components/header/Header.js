@@ -4,23 +4,22 @@ import {
   Text,
   Image,
   ImageBackground,
-  TouchableOpacity,
   Modal,
   StyleSheet,
-  Switch,
-  Button,
-  Pressable
 } from 'react-native'
 
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import background from '../../../assets/images/background.png';
+import { useAuth } from '../../context/AuthContext';
+import { useAudio } from '../../context/AudioContext';
+import { PressableWithSound, TouchableWithSound } from '../CustomButton';
 
 const CustomSwitch = ({ value, onValueChange, label }) => {
   return (
     <View style={styles.toggleContainer}>
       <Text style={styles.toggleText}>{label}</Text>
-      <Pressable
+      <PressableWithSound
         style={[
           styles.switchBase,
           value ? styles.switchActive : styles.switchInactive,
@@ -33,41 +32,48 @@ const CustomSwitch = ({ value, onValueChange, label }) => {
             value ? styles.thumbActive : styles.thumbInactive,
           ]}
         />
-      </Pressable>
+      </PressableWithSound>
     </View>
   );
 };
 
-const Header = () => {
+const Header = ({ activeTab }) => {
   const navigation = useNavigation();
+  const route = useRoute();
   const [modalVisible, setModalVisible] = useState(false);
-  const [musicEnabled, setMusicEnabled] = useState(true);
-  const [effectsEnabled, setEffectsEnabled] = useState(true);
+  const { userData } = useAuth()
+  const { isClickSoundEnabled, toggleClickSound, isPlaying, isMusicEnabled, toggleMusic } = useAudio();
 
   const handleNavigate = (redirectRoute) => {
     setModalVisible(false)
     navigation.navigate('Loading', { redirectRoute });
   };
 
+  const handleSearch = () => {
+    if (route.name !== 'SearchScreen') {
+      navigation.replace("SearchScreen")
+    }
+  };
+
   return (
     <View style={styles.headerContainer}>
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <TouchableWithSound onPress={() => setModalVisible(true)}>
         <Image
-          source={require('../../../assets/images/avatar.png')}
+          source={userData?.avatar ? { uri: userData.avatar } : require('../../../assets/images/avatar.png')}
           style={styles.avatar}
         />
-      </TouchableOpacity>
+      </TouchableWithSound>
 
-      <TouchableOpacity onPress={() => navigation.replace("AdventureSelectionScreen")}>
+      <TouchableWithSound onPress={() => navigation.replace("AdventureSelectionScreen")}>
         <Image
           source={require('../../../assets/images/logo.png')}
           style={styles.logo}
         />
-      </TouchableOpacity>
+      </TouchableWithSound>
 
-      {/* <TouchableOpacity> */}
-      <Ionicons name="search" size={40} color="#889DD1" />
-      {/* </TouchableOpacity> */}
+      <TouchableWithSound onPress={handleSearch} disabled={route.name == 'SearchScreen'}>
+        {activeTab !== 'Game' && <Ionicons name="search" size={40} color="#889DD1" />}
+      </TouchableWithSound>
 
       <Modal
         animationType="fade"
@@ -75,11 +81,11 @@ const Header = () => {
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <Pressable
+        <PressableWithSound
           style={styles.modalOverlay}
           onPress={() => setModalVisible(false)}
         >
-          <Pressable style={styles.modalContainer} onPress={() => { }}>
+          <PressableWithSound style={styles.modalContainer} onPress={() => { }}>
             <ImageBackground
               source={background}
               resizeMode="cover"
@@ -87,24 +93,24 @@ const Header = () => {
             >
               <View style={styles.avatarContainer}>
                 <Image
-                  source={require('../../../assets/images/avatar.png')}
+                  source={userData?.avatar ? { uri: userData.avatar } : require('../../../assets/images/avatar.png')}
                   style={styles.modalAvatar}
                 />
-                <Text style={styles.modalTitle}>LUKINHA</Text>
+                <Text style={styles.modalTitle}>{userData?.name}</Text>
               </View>
               <View style={styles.optionsContainer}>
                 <CustomSwitch
-                  value={musicEnabled}
-                  onValueChange={setMusicEnabled}
+                  value={isMusicEnabled}
+                  onValueChange={toggleMusic}
                   label="Música do App"
                 />
                 <CustomSwitch
-                  value={effectsEnabled}
-                  onValueChange={setEffectsEnabled}
+                  value={isClickSoundEnabled}
+                  onValueChange={toggleClickSound}
                   label="Efeitos Sonoros"
                 />
               </View>
-              <Pressable onPress={() => console.log('Mudar Perfil')}
+              {/* <PressableWithSound onPress={() => console.log('Mudar Perfil')}
                 style={({ pressed }) => [
                   styles.modalButton,
                   pressed && styles.modalButtonPressed,
@@ -112,8 +118,8 @@ const Header = () => {
                 {({ pressed }) => (
                   <Text style={[styles.modalButtonText, pressed && styles.modalButtonTextPressed]}>Mudar Perfil</Text>
                 )}
-              </Pressable >
-              <Pressable onPress={() => handleNavigate("Settings")}
+              </PressableWithSound > */}
+              <PressableWithSound onPress={() => handleNavigate("Settings")}
                 style={({ pressed }) => [
                   styles.modalButton,
                   pressed && styles.modalButtonPressed,
@@ -121,10 +127,10 @@ const Header = () => {
                 {({ pressed }) => (
                   <Text style={[styles.modalButtonText, pressed && styles.modalButtonTextPressed]}>Configurações</Text>
                 )}
-              </Pressable >
+              </PressableWithSound >
             </ImageBackground>
-          </Pressable>
-        </Pressable>
+          </PressableWithSound>
+        </PressableWithSound>
       </Modal>
     </View>
   );
@@ -142,7 +148,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 61,
     height: 61,
-    borderRadius: 20,
+    borderRadius: 50,
   },
   logo: {
     width: 142,
@@ -179,7 +185,7 @@ const styles = StyleSheet.create({
   modalAvatar: {
     width: 94,
     height: 94,
-    borderRadius: 30,
+    borderRadius: 50,
     marginRight: 10,
   },
   modalTitle: {

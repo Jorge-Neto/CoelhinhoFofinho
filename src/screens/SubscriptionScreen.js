@@ -1,75 +1,104 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity,
   ScrollView,
-  Pressable,
 } from 'react-native';
+import { useAuth } from '../context/AuthContext';
+import PaymentCardSection from '../components/PaymentCardSection';
+import { PressableWithSound, TouchableWithSound } from '../components/CustomButton';
 
 const SubscriptionScreen = ({ navigation }) => {
+  const { updateUserData, userData } = useAuth();
+
+  const [selectedPlan, setSelectedPlan] = useState(userData?.subscriptionPlan || '');
+
+  const handleSelectPlan = (plan) => {
+    setSelectedPlan(plan);
+  };
+
+  const handleSubscription = () => {
+    if (!selectedPlan) {
+      alert('Por favor, selecione um plano.');
+      return;
+    }
+
+    const updatedData = {
+      ...userData,
+      subscriptionPlan: selectedPlan,
+    };
+
+    updateUserData(updatedData);
+    alert('Plano contratado com sucesso!');
+    navigation.replace('Settings');
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Pressable onPress={() => navigation.replace("AdventureSelectionScreen")} style={styles.header}>
+      <PressableWithSound onPress={() => navigation.replace("AdventureSelectionScreen")} style={styles.header}>
         <Image
           source={require('../../assets/images/logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
-      </Pressable>
-      <View style={styles.profileSection}>
-        <Image
-          source={require('../../assets/images/avatar.png')}
-          style={styles.avatar}
-        />
-        <Text style={styles.profileName}>LUKINHA</Text>
-      </View>
-      <View style={styles.plansSection}>
-        <Text style={styles.sectionTitle}>PLANOS E PREÇOS</Text>
-        {[
-          { name: 'Bunny Hop -', level: 'Básico', description: 'Somente 1 Tela em HD', price: 'R$ 19,90' },
-          { name: 'Cottontail Club -', level: 'Intermediário', description: '2 Tela em FULL HD', price: 'R$ 29,90' },
-          { name: 'Rabbit -', level: 'Avançado', description: '4 Tela em ULTRA HD', price: 'R$ 49,90' },
-        ].map((plan, index) => (
-          <View key={index} style={styles.planItem}>
-            <View>
+      </PressableWithSound>
+
+      <View style={styles.content}>
+        <View style={styles.profileSection}>
+          <Image source={userData?.avatar ? { uri: userData.avatar } : require('../../assets/images/avatar.png')} style={styles.avatar} />
+          <Text style={styles.profileName}>{userData?.name}</Text>
+        </View>
+
+        <View style={styles.plansSection}>
+          <Text style={styles.sectionTitle}>PLANOS E PREÇOS</Text>
+          {[
+            { name: 'Bunny Hop', level: ' - Mensal', description: 'Plano Mensal', price: 'R$ 9,90' },
+            { name: 'Rabbit', level: ' - Anual', description: 'Plano Anual', price: 'R$ 99,90' },
+          ].map((plan, index) => (
+            <TouchableWithSound
+              key={index}
+              style={[
+                styles.planItem,
+                selectedPlan === plan.name && { backgroundColor: '#87ADD950', borderRadius: '4px' }, // Destaque para o plano selecionado
+              ]}
+              onPress={() => handleSelectPlan(plan.name)}
+            >
               <View style={styles.planTitle}>
                 <Text style={styles.planName}>{plan.name}</Text>
                 <Text style={styles.planLevel}>{plan.level}</Text>
               </View>
-            </View>
-
-            <View style={styles.planTitle}>
-              <Text style={styles.planDescription}>{plan.description}</Text>
               <View style={styles.priceContainer}>
                 <Text style={styles.planPrice}>{plan.price}</Text>
               </View>
-            </View>
-
-          </View>
-        ))}
-      </View>
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>PAGAMENTOS</Text>
-        <Text style={styles.sectionText}>Cartão</Text>
-        <View style={styles.paymentInfo}>
-          <View style={styles.card}>
-            <View style={styles.cardChip} />
-            <Text style={styles.cardNumber}>**** **** **** 8640</Text>
-          </View>
-          <TouchableOpacity style={styles.paymentButton}>
-            <Text style={styles.paymentButtonText}>
-              TROCAR MÉTODO DE PAGAMENTO
-            </Text>
-          </TouchableOpacity>
+            </TouchableWithSound>
+          ))}
         </View>
+
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>PAGAMENTOS</Text>
+          <PaymentCardSection
+            paymentMethod={userData?.paymentMethod}
+            creditCardNumber={userData?.creditCardNumber}
+            creditCardExpiry={userData?.creditCardExpiry}
+            creditCardCVV={userData?.creditCardCVV}
+          />
+          <TouchableWithSound
+            style={styles.paymentButton}
+            onPress={() => navigation.navigate('PaymentMethod')}
+          >
+            <Text style={styles.paymentButtonText}>TROCAR MÉTODO DE PAGAMENTO</Text>
+          </TouchableWithSound>
+        </View>
+
+        <TouchableWithSound style={styles.subscribeButton} onPress={handleSubscription}>
+          <Text style={styles.subscribeButtonText}>
+            {selectedPlan && selectedPlan !== 'Free' ? 'CONTRATAR ' + selectedPlan.toUpperCase() : 'Continuar com plano'}
+          </Text>
+        </TouchableWithSound>
       </View>
-      <TouchableOpacity style={styles.subscribeButton}>
-        <Text style={styles.subscribeButtonText}>CONTRATAR PLANO</Text>
-      </TouchableOpacity>
-    </ScrollView>
+    </ScrollView >
   );
 };
 
@@ -77,16 +106,20 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    paddingBottom: 20
   },
   header: {
-    width: '100%',
     alignItems: 'center',
-    backgroundColor: '#A0C8E8',
+    backgroundColor: '#87ADD9',
     paddingTop: 59,
     paddingHorizontal: 118,
     paddingBottom: 16,
+  },
+  content: {
+
+    paddingTop: 56,
+    paddingHorizontal: 29,
+    paddingBottom: 37,
+    alignItems: 'center'
   },
   logo: {
     width: 156,
@@ -94,7 +127,6 @@ const styles = StyleSheet.create({
   },
   profileSection: {
     alignItems: 'center',
-    marginTop: 59,
     marginBottom: 57,
   },
   avatar: {
@@ -141,7 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#717171',
     marginRight: 10,
   },
-  cardNumber: {
+  creditCard: {
     fontSize: 20,
     color: '#717171',
   },
@@ -157,9 +189,11 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   planItem: {
-    flexDirection: 'column',
+    flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 40
+    alignItems: 'center',
+    marginBottom: 16,
+    padding: 8,
   },
   planTitle: {
     flexDirection: 'row'
@@ -179,7 +213,6 @@ const styles = StyleSheet.create({
     fontWeight: 'regular',
     color: '#717171',
     marginTop: 12,
-    marginRight: 'auto'
   },
   priceContainer: {
     borderWidth: 1,
@@ -197,12 +230,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 28,
     paddingVertical: 8,
+    marginHorizontal: 'auto'
   },
   subscribeButtonText: {
     color: '#FFFFFF',
     fontSize: 13,
     fontWeight: 'regular',
   },
+  noCardText: {
+    fontSize: 12,
+  }
 });
 
 export default SubscriptionScreen;

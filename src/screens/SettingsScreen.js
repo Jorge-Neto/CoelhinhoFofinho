@@ -1,19 +1,21 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity,
   ScrollView,
-  Pressable,
   Animated
 } from 'react-native';
 
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { useAuth } from '../context/AuthContext';
+import PaymentCardSection from '../components/PaymentCardSection';
+import { PressableWithSound, TouchableWithSound } from '../components/CustomButton';
 
 const SettingsScreen = ({ navigation }) => {
   const scaleValue = useRef(new Animated.Value(1)).current;
+  const { checkAccess, userData, fetchUserData, handleLogout, currentUser } = useAuth()
 
   const handlePressIn = () => {
     Animated.spring(scaleValue, {
@@ -33,104 +35,144 @@ const SettingsScreen = ({ navigation }) => {
     navigation.navigate('Loading', { redirectRoute });
   };
 
-  const handleLogout = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: 'Splash' }],
-    });
+  const handleProfileEdit = () => {
+    navigation.navigate('EditProfileScreen', { userData });
   };
+
+  const handleChangePlan = () => {
+    navigation.navigate('Subscription', { userData });
+  };
+
+  const handleCancelSubscription = () => {
+    navigation.navigate('CancelSubscription');
+  };
+
+  const hangleDeletePress = async () => {
+    navigation.navigate('DeleteAccount');
+  };
+
+  const hangleLogoutPress = async () => {
+    try {
+      await handleLogout()
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Splash' }],
+      });
+    } catch (error) {
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+
+    if (!checkAccess()) {
+      handleLogout()
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Splash' }],
+      });
+    }
+  }, [navigation]);
+
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <Pressable onPress={() => navigation.replace("AdventureSelectionScreen")} style={styles.header}>
+      <PressableWithSound onPress={() => navigation.replace("AdventureSelectionScreen")} style={styles.header}>
         <Image
           source={require('../../assets/images/logo.png')}
           style={styles.logo}
           resizeMode="contain"
         />
-      </Pressable>
+      </PressableWithSound>
 
       <View style={styles.content}>
-
         <View style={styles.profileSection}>
-          <Image
-            source={require('../../assets/images/avatar.png')}
-            style={styles.avatar}
-          />
-          <Text style={styles.profileName}>LUKINHA</Text>
+          <Image source={userData?.avatar ? { uri: userData.avatar } : require('../../assets/images/avatar.png')} style={styles.avatar} />
+          <Text style={styles.profileName}>{userData?.name}</Text>
+          <TouchableWithSound
+            style={styles.editProfileButton}
+            onPress={handleProfileEdit}
+          >
+            <Text style={styles.editProfileButtonText}>Editar Perfil</Text>
+          </TouchableWithSound>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>ASSINATURA E COBRANÇA</Text>
-          <Text style={styles.sectionText}>Seu e-mail</Text>
-          <Text style={styles.sectionText}>Senha</Text>
-          <Text style={styles.sectionText}>Telefone</Text>
+          <Text style={styles.sectionText}>Seu e-mail: {currentUser?.email}</Text>
+          <Text style={styles.sectionText}>Telefone: {userData?.phone}</Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>PAGAMENTOS</Text>
-          <Text style={styles.sectionText}>Cartão</Text>
-          <View style={styles.paymentInfo}>
-            <View style={styles.card}>
-              <View style={styles.cardChip} />
-              <Text style={styles.cardNumber}>**** **** **** 8640</Text>
-            </View>
-            <TouchableOpacity style={styles.paymentButton}>
-              <Text style={styles.paymentButtonText}>
-                TROCAR MÉTODO DE PAGAMENTO
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity style={styles.cancelButton}>
-            <Text style={styles.cancelButtonText}>CANCELAR ASSINATURA</Text>
-          </TouchableOpacity>
+          <PaymentCardSection
+            paymentMethod={userData?.paymentMethod}
+            creditCardNumber={userData?.creditCardNumber}
+            creditCardExpiry={userData?.creditCardExpiry}
+            creditCardCVV={userData?.creditCardCVV}
+          />
+          <TouchableWithSound
+            style={styles.paymentButton}
+            onPress={() => navigation.navigate('PaymentMethod')}
+          >
+            <Text style={styles.paymentButtonText}>TROCAR MÉTODO DE PAGAMENTO</Text>
+          </TouchableWithSound>
+
+          {userData?.subscriptionPlan !== "Free" ?
+            (
+              <TouchableWithSound style={styles.cancelButton} onPress={handleCancelSubscription}>
+                <Text style={styles.cancelButtonText}>CANCELAR ASSINATURA</Text>
+              </TouchableWithSound>
+            ) :
+            (<View style={{ marginTop: 24 }} />)
+          }
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>DETALHES DO PLANO</Text>
           <View style={styles.planInfo}>
-            <Text style={styles.planName}>Rabbit</Text>
-            <View style={styles.planBadge}>
-              <Text style={styles.planBadgeText}>ULTRA HD</Text>
-            </View>
+            {userData?.subscriptionPlan == "Free" ?
+              <Text style={styles.planName}>Gratuito</Text> :
+              (<View style={{ flexDirection: 'row' }}>
+                <Text style={styles.planName}>{userData?.subscriptionPlan}</Text>
+                <View style={styles.planBadge}>
+                  <Text style={styles.planBadgeText}>{userData?.subscriptionPlan == 'Rabbit' ? 'Anual' : 'Mensal'}</Text>
+                </View>
+              </View>)
+            }
           </View>
           <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
-            <Pressable style={({ pressed }) => [
+            <PressableWithSound style={({ pressed }) => [
               styles.link,
               pressed && styles.linkPressed,
             ]} onPressIn={handlePressIn}
               onPressOut={handlePressOut}
 
-              onPress={() => handleNavigation('Subscription')}>
+              onPress={handleChangePlan}>
               <Text style={styles.linkText}>Alterar plano</Text>
               <Ionicons name="arrow-forward" size={13} color="#000000" />
-            </Pressable>
+            </PressableWithSound>
           </Animated.View>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>CONFIGURAÇÕES</Text>
-          <TouchableOpacity style={styles.link}>
-            <Text style={styles.linkText}>Gerenciar aparelhos</Text>
-            <Ionicons name="arrow-forward" size={13} color="#000000" />
-
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.link}>
+          <TouchableWithSound style={styles.link} onPress={hangleDeletePress}>
             <Text style={styles.linkText}>Excluir conta</Text>
             <Ionicons name="arrow-forward" size={13} color="#000000" />
 
-          </TouchableOpacity>
+          </TouchableWithSound>
           <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
-            <Pressable style={({ pressed }) => [
+            <PressableWithSound style={({ pressed }) => [
               styles.link,
               pressed && styles.linkPressed,
             ]} onPressIn={handlePressIn}
               onPressOut={handlePressOut}
 
-              onPress={handleLogout}>
+              onPress={hangleLogoutPress}>
               <Text style={styles.linkText}>Sair da conta</Text>
               <Ionicons name="arrow-forward" size={13} color="#000000" />
-            </Pressable>
+            </PressableWithSound>
           </Animated.View>
         </View>
 
@@ -175,6 +217,18 @@ const styles = StyleSheet.create({
     fontWeight: 'regular',
     color: '#717171',
   },
+  editProfileButton: {
+    marginTop: 10,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    backgroundColor: '#87ADD9',
+    borderRadius: 5,
+  },
+  editProfileButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   section: {
     borderBottomColor: "#717171",
     borderBottomWidth: 2,
@@ -204,7 +258,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#717171',
     marginRight: 10,
   },
-  cardNumber: {
+  creditCard: {
     fontSize: 20,
     color: '#717171',
   },

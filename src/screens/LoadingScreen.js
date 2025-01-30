@@ -2,19 +2,21 @@ import React, { useEffect, useRef } from 'react';
 import { View, Text, Animated, StyleSheet, ImageBackground } from 'react-native';
 
 import background from '../../assets/images/background.png';
+import { useAuth } from '../context/AuthContext';
 
 const LoadingScreen = ({ navigation, route }) => {
   const progressAnim = useRef(new Animated.Value(0)).current;
+  const { user } = useAuth();
 
   const { redirectRoute } = route.params;
   useEffect(() => {
 
     const timer = setTimeout(() => {
-      navigation.replace(redirectRoute);
+      navigation.replace(user ? redirectRoute : 'Login');
     }, 3000);
 
     return () => clearTimeout(timer);
-  }, [navigation]);
+  }, [user, navigation]);
 
   useEffect(() => {
     Animated.timing(progressAnim, {

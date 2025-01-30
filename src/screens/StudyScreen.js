@@ -1,67 +1,145 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, ScrollView, StyleSheet, Image, Dimensions, ActivityIndicator } from 'react-native';
 import LayoutWithFooter from '../layouts/LayoutWithFooter';
-
+import YoutubePlayer from "react-native-youtube-iframe";
+import { useAgeGroup } from '../context/AgeGroupContext';
 const screenWidth = Dimensions.get('window').width;
 
-const StudyScreen = () => {
-  const carousels = [
-    {
-      title: 'PRIMEIROS PASSOS NO MUNDO DOS NÚMEROS',
-      items: [
-        { id: 1, duration: '2:55', title: 'Contando com Brinquedos: Um, Dois, Três ...', image: require('../../assets/images/screens/study/primeiros-passos-1.png') },
-        { id: 2, duration: '3:19', title: 'Números e Bichinhos: Aprenda Brincando!', image: require('../../assets/images/screens/study/primeiros-passos-2.png') },
-        { id: 3, duration: '3:19', title: 'A Festa dos Números: Quem Chega Primeiro?', image: require('../../assets/images/screens/study/primeiros-passos-3.png') },
-      ],
-    },
-    {
-      title: 'CONHECENDO O ALFABETO',
-      items: [
-        { id: 4, duration: '2:55', title: 'Letras e Sons: O que Começa com B?', image: require('../../assets/images/screens/study/conhecendo-alfabeto-1.png') },
-        { id: 5, duration: '3:19', title: 'ABC Divertido: Cantando o Alfabeto!', image: require('../../assets/images/screens/study/conhecendo-alfabeto-2.png') },
-        { id: 6, duration: '3:19', title: 'A é de Abelha: Vamos Aprender as Letras!', image: require('../../assets/images/screens/study/conhecendo-alfabeto-3.png') },
-      ],
-    },
-    {
-      title: 'BRINCANDO DE ESTUDAR',
-      items: [
-        { id: 7, duration: '2:55', title: 'Quem Mora Aqui? Aprendendo sobre Animais!', image: require('../../assets/images/screens/study/brincando-estudar-1.png') },
-        { id: 8, duration: '3:19', title: 'Descubra o Que Está Escondido: Adivinha o Objeto!', image: require('../../assets/images/screens/study/brincando-estudar-2.png') },
-        { id: 9, duration: '3:19', title: 'Hora de Estudar Cores e Formas Brincando!', image: require('../../assets/images/screens/study/brincando-estudar-3.png') },
-      ],
-    },
-    {
-      title: 'HORA DE LER E OUVIR',
-      items: [
-        { id: 10, duration: '2:55', title: 'Leia e Brinque: Aprenda com os Contos!', image: require('../../assets/images/screens/study/ler-ouvir-1.png') },
-        { id: 11, duration: '3:19', title: 'Contando Histórias: O Que Vem Depois?', image: require('../../assets/images/screens/study/ler-ouvir-2.png') },
-        { id: 12, duration: '3:19', title: 'Qual é a Palavra? Adivinha e Aprenda!', image: require('../../assets/images/screens/study/ler-ouvir-3.png') },
-      ],
-    },
-  ];
+import {
+  API_KEY,
+  YOUTUBE_API_URL
+} from "@env";
+import { useAuth } from '../context/AuthContext';
+import { TouchableWithSound } from '../components/CustomButton';
+
+const categories = {
+  numbers: 'Primeiros Passos no Mundo dos Números',
+  alphabet: 'Conhecendo o Alfabeto',
+  studying: 'Brincando de Estudar',
+  reading: 'Hora de Ler e Ouvir',
+};
+
+const StudyScreen = ({ navigation }) => {
+  const { selectedAgeGroup } = useAgeGroup();
+  const [videos, setVideos] = useState({});
+  const [loading, setLoading] = useState({});
+  const [selectedVideoId, setSelectedVideoId] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [nextPageTokens, setNextPageTokens] = useState({});
+  const { checkAccess, fetchUserData } = useAuth();
+
+  const fetchVideos = async (categoryKey, categoryName, pageToken = '') => {
+    setLoading((prev) => ({ ...prev, [categoryKey]: true }));
+
+    try {
+      const url = `${YOUTUBE_API_URL}?part=snippet&q=${encodeURIComponent(categoryName)}&type=video&key=${API_KEY}&maxResults=10&safeSearch=strict&pageToken=${pageToken}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const newVideos = data.items || [];
+      setVideos((prev) => ({
+        ...prev,
+        [categoryKey]: pageToken ? [...(prev[categoryKey] || []), ...newVideos] : newVideos,
+      }));
+      setNextPageTokens((prev) => ({
+        ...prev,
+        [categoryKey]: data.nextPageToken || null,
+      }));
+    } catch (error) {
+      console.error(`Erro ao buscar vídeos para a categoria ${categoryName}:`, error);
+    } finally {
+      setLoading((prev) => ({ ...prev, [categoryKey]: false }));
+    }
+  };
+
+  useEffect(() => {
+    const loadAllVideos = async () => {
+      await Promise.all(
+        Object.entries(categories).map(async ([key, name]) => {
+          const ageSpecificQuery = `${name} ${selectedAgeGroup}`;
+          await fetchVideos(key, ageSpecificQuery);
+        })
+      );
+      setIsLoading(false);
+    };
+
+    loadAllVideos();
+  }, [selectedAgeGroup]);
+
+  const handleLoadMore = (categoryKey) => {
+    const pageToken = nextPageTokens[categoryKey];
+    if (pageToken) {
+      const categoryName = `${categories[categoryKey]} ${selectedAgeGroup}`;
+      fetchVideos(categoryKey, categoryName, pageToken);
+    }
+  };
+
+  const handleVideoPress = (videoId) => {
+    if (checkAccess()) {
+      setSelectedVideoId(videoId);
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Splash' }],
+      });
+    }
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, [navigation]);
 
   return (
     <LayoutWithFooter activeTab={'Study'}>
-      <ScrollView style={styles.container}>
-        {carousels.map((carousel, index) => (
-          <View key={index + carousel.title} style={styles.carouselContainer}>
-            <Text style={styles.carouselTitle}>{carousel.title}</Text>
-            <ScrollView horizontal style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
-              {carousel.items.map((item) => (
-                <TouchableOpacity key={item.id} style={styles.item}>
-                  <View style={styles.imageContainer}>
-                    <Image source={item.image} style={styles.itemImage} />
-                    <View style={styles.timeContainer}>
-                      <Text style={styles.timeText}>{item.duration}</Text>
-                    </View>
-                  </View>
-                  <Text style={styles.itemText}>{item.title}</Text>
-                </TouchableOpacity>
-              ))}
-            </ScrollView>
+      {selectedVideoId ? (
+        <View>
+          <YoutubePlayer
+            height={300}
+            play={true}
+            videoId={selectedVideoId}
+            onChangeState={(state) => {
+              if (state === 'ended') {
+                setSelectedVideoId(null);
+              }
+            }}
+          />
+          <View style={styles.closeButtonContainer}>
+            <TouchableWithSound
+              style={styles.closeButton}
+              onPress={() => setSelectedVideoId(null)}
+            >
+              <Text style={styles.closeButtonText}>Fechar</Text>
+            </TouchableWithSound>
           </View>
-        ))}
-      </ScrollView>
+        </View>
+      ) : (
+        <ScrollView style={styles.container}>
+          {Object.entries(categories).map(([key, name]) => (
+            <View key={key} style={styles.carouselContainer}>
+              <Text style={styles.carouselTitle}>{name}</Text>
+              {loading[key] ? (
+                <ActivityIndicator size="large" color="#0099cc" />
+              ) : (
+                <ScrollView horizontal style={styles.scrollContainer} showsHorizontalScrollIndicator={false}>
+                  {videos[key]?.map((video) => (
+                    <TouchableWithSound key={video.id.videoId} style={styles.item} onPress={() => handleVideoPress(video.id.videoId)}>
+                      <View style={styles.imageContainer}>
+                        <Image source={{ uri: video.snippet.thumbnails.medium.url }} style={styles.itemImage} />
+                        <View style={styles.timeContainer}>
+                        </View>
+                      </View>
+                      <Text style={styles.itemText}>{video.snippet.title}</Text>
+                    </TouchableWithSound>
+                  ))}
+                  <TouchableWithSound onPress={() => handleLoadMore(key)} style={styles.loadMoreButton} disabled={isLoading}>
+                    <Text style={styles.loadMoreText}>Ver mais</Text>
+                  </TouchableWithSound>
+                </ScrollView>
+              )}
+            </View>
+          ))}
+        </ScrollView>
+      )}
     </LayoutWithFooter>
   );
 };
@@ -92,9 +170,8 @@ const styles = StyleSheet.create({
     width: screenWidth * 0.6,
     backgroundColor: '#434343',
     marginRight: 17.5,
-    borderTopLeftRadius: 6,
-    borderTopRightRadius: 6,
-    elevation: 2,
+    borderRadius: 6,
+    elevation: 4,
     overflow: 'hidden',
   },
   imageContainer: {
@@ -129,6 +206,41 @@ const styles = StyleSheet.create({
     fontWeight: 'semibold',
     color: '#FDFDFD',
     textAlign: 'center'
+  },
+  closeButtonContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  closeButton: {
+    backgroundColor: '#889DD1',
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+  },
+  closeButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  progressContainer: {
+    alignItems: 'center',
+    marginVertical: 20,
+  },
+  loadMoreButton: {
+    width: screenWidth * 0.6,
+    backgroundColor: '#77C6C4',
+    marginRight: 17.5,
+    borderRadius: 6,
+    elevation: 4,
+    overflow: 'hidden',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 134,
+  },
+  loadMoreText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

@@ -1,4 +1,4 @@
-import { Image, ImageBackground, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import background from '../../assets/images/background.png';
@@ -9,6 +9,7 @@ import gameIcon from '../../assets/images/icons/game-icon.png';
 
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/header/Header';
+import { PressableWithSound } from '../components/CustomButton';
 
 const LayoutWithFooter = ({ children, activeTab }) => {
   const navigation = useNavigation();
@@ -23,10 +24,10 @@ const LayoutWithFooter = ({ children, activeTab }) => {
       resizeMode="cover"
       style={styles.background}
     >
-      <Header />
+      <Header activeTab={activeTab} />
       <View style={styles.content}>{children}</View>
       <View style={styles.footer}>
-        <Pressable
+        <PressableWithSound
           style={styles.footerButton}
           onPress={() => handleNavigate('Drawing')}
         >
@@ -36,8 +37,8 @@ const LayoutWithFooter = ({ children, activeTab }) => {
               <Text style={styles.footerText}>Desenhos</Text>
             </>
           )}
-        </Pressable>
-        <Pressable
+        </PressableWithSound>
+        <PressableWithSound
           style={styles.footerButton}
           onPress={() => handleNavigate('Study')}
         >
@@ -47,8 +48,8 @@ const LayoutWithFooter = ({ children, activeTab }) => {
               <Text style={styles.footerText}>Estudar</Text>
             </>
           )}
-        </Pressable>
-        <Pressable
+        </PressableWithSound>
+        <PressableWithSound
           style={styles.footerButton}
           onPress={() => handleNavigate('Learning')}
         >
@@ -58,8 +59,8 @@ const LayoutWithFooter = ({ children, activeTab }) => {
               <Text style={styles.footerText}>Aprender</Text>
             </>
           )}
-        </Pressable>
-        <Pressable
+        </PressableWithSound>
+        <PressableWithSound
           style={styles.footerButton}
           onPress={() => handleNavigate('Game')}
         >
@@ -69,7 +70,7 @@ const LayoutWithFooter = ({ children, activeTab }) => {
               <Text style={styles.footerText}>Jogos</Text>
             </>
           )}
-        </Pressable>
+        </PressableWithSound>
       </View>
     </ImageBackground>
   )

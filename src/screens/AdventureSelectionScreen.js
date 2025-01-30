@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Image, ImageBackground, Pressable } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Image, ImageBackground } from 'react-native';
+import { useAuth } from '../context/AuthContext';
 
 import background from '../../assets/images/background.png';
 import videoIcon from '../../assets/images/icons/video-icon.png';
@@ -8,11 +9,21 @@ import learnIcon from '../../assets/images/icons/learn-icon.png';
 import gameIcon from '../../assets/images/icons/game-icon.png';
 
 import Ionicons from '@expo/vector-icons/Ionicons'
+import AnimatedRabbit from '../components/AnimatedRabbit';
+import { PressableWithSound } from '../components/CustomButton';
 
 const AdventureSelectionScreen = ({ navigation }) => {
+  const { checkAccess } = useAuth();
 
   const handleNavigate = (selectedTab) => {
-    navigation.navigate('Loading', { redirectRoute: selectedTab });
+    if (checkAccess()) {
+      navigation.navigate('Loading', { redirectRoute: selectedTab });
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Splash' }],
+      });
+    }
   };
 
   return (
@@ -21,20 +32,21 @@ const AdventureSelectionScreen = ({ navigation }) => {
       resizeMode="cover"
       style={styles.background}
     >
+      <AnimatedRabbit corner="bottom-right" />
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.container}>
-          <Pressable style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
+          <PressableWithSound style={styles.backButton} onPress={() => navigation.navigate('AgeSelectionScreen')}>
             {({ pressed }) => (
               <Text><Ionicons name="arrow-back" size={47} color={pressed ? '#889DD1' : 'white'} /></Text>
             )}
-          </Pressable>
+          </PressableWithSound>
 
           <Text style={styles.title}>QUAL AVENTURA VAMOS EMBARCAR?</Text>
           <Text style={styles.subtitle}>ESCOLHA UMA DAS OPÇÕES!</Text>
 
           <View style={styles.optionsContainer}>
             {/* DESENHOS */}
-            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Drawing')}>
+            <PressableWithSound style={styles.optionsLine} onPress={() => handleNavigate('Drawing')}>
               {({ pressed }) => (
                 <>
                   <View
@@ -62,9 +74,9 @@ const AdventureSelectionScreen = ({ navigation }) => {
                   </View>
                 </>
               )}
-            </Pressable>
+            </PressableWithSound>
             {/* ESTUDAR */}
-            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Study')}>
+            <PressableWithSound style={styles.optionsLine} onPress={() => handleNavigate('Study')}>
               {({ pressed }) => (
                 <>
                   <View
@@ -94,9 +106,9 @@ const AdventureSelectionScreen = ({ navigation }) => {
                   </View>
                 </>
               )}
-            </Pressable>
+            </PressableWithSound>
             {/* APRENDER */}
-            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Learning')}>
+            <PressableWithSound style={styles.optionsLine} onPress={() => handleNavigate('Learning')}>
               {({ pressed }) => (
                 <>
                   <View
@@ -124,9 +136,9 @@ const AdventureSelectionScreen = ({ navigation }) => {
                   </View>
                 </>
               )}
-            </Pressable>
+            </PressableWithSound>
             {/* JOGAR */}
-            <Pressable style={styles.optionsLine} onPress={() => handleNavigate('Game')}>
+            <PressableWithSound style={styles.optionsLine} onPress={() => handleNavigate('Game')}>
               {({ pressed }) => (
                 <>
                   <View
@@ -156,7 +168,7 @@ const AdventureSelectionScreen = ({ navigation }) => {
                   </View>
                 </>
               )}
-            </Pressable>
+            </PressableWithSound>
           </View>
         </View>
       </ScrollView>
